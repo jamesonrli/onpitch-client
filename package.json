@@ -1,0 +1,27 @@
+{
+  "name": "onpitch-client",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "react": "^0.14.0",
+    "babelify": "^6.3.0",
+    "react-dom": "^0.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init": "npm install -g browserify && npm install --save react react-dom && npm install --save-dev babelify",
+    "build": "browserify -t babelify main.js -o compiled.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://jamesonrli@github.com/jamesonrli/onpitch-client.git"
+  },
+  "author": "",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/jamesonrli/onpitch-client/issues"
+  },
+  "homepage": "https://github.com/jamesonrli/onpitch-client#readme"
+}
