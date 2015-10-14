@@ -1,3 +1,4 @@
 1. Install Node.js which includes npm.
-2. Run 'npm run init' one time.
-3. Run 'npm run build' after any changes.
+2. Run 'sudo npm install' one time.
+3. Run 'sudo npm run initme' one time.
+4. Run 'npm run build' after any changes.
