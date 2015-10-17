@@ -2,10 +2,15 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var CommentBox = require('./components/comments').CommentBox;
+
 var HelloWorld = React.createClass({
   render: function() {
     return (
-      <h1>Hello, world!</h1>
+      <div>
+        <h1>Hello, world!</h1>
+        <CommentBox />
+      </div>
     );
   }
 });

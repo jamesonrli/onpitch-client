@@ -1,0 +1,12 @@
+.commentBox {
+  display: flex;
+}
+
+.commentHeaderItem {
+  display: inline-block;
+}
+
+.commentInner {
+  padding-left: 10px;
+  padding-right: 10px;
+}
