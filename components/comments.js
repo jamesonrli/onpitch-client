@@ -22,7 +22,7 @@ var CommentBox = React.createClass({
 
   render: function() {
     return (
-      <div class='commentBox'>
+      <div className='commentBox'>
         <h3>This is the CommentBox</h3>
         <CommentList comments={this.state.commentList} />
         <CommentForm />
@@ -34,7 +34,7 @@ var CommentBox = React.createClass({
 var CommentList = React.createClass({
   render: function() {
     return (
-      <div class='commentList'>
+      <div className='commentList'>
         <h4>This is the CommentList</h4>
         <hr className='commentDivider'/>
         {this.props.comments.map(function(comment, i) {
@@ -50,7 +50,7 @@ var CommentList = React.createClass({
 var CommentForm = React.createClass({
   render: function() {
     return (
-      <div class='commentForm'>
+      <div className='commentForm'>
         <h4>This is the CommentForm</h4>
       </div>
     );

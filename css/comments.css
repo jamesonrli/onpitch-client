@@ -1,12 +1,12 @@
-.commentBox {
+[className=commentBox] {
   display: flex;
 }
 
-.commentHeaderItem {
+[className=commentHeaderItem] {
   display: inline-block;
 }
 
-.commentInner {
+[className=commentInner] {
   padding-left: 10px;
   padding-right: 10px;
 }
