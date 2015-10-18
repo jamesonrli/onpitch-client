@@ -11,12 +11,13 @@ var CommentBox = React.createClass({
     }
   },
 
-  addComment: function() {
+  commentSubmitHandler: function(comment) {
     // rerender is triggered after state is set, according to docs
     this.setState(function(prevState, currentProp) {
-      var prevList = prevState.commentList;
-      prevList.push(new CommentData("Peter1", "11/3/15 1:50PM", "This is a new comment"));
-      return {commentList: prevList};
+      var newList = prevState.commentList;
+      newList.push(new CommentData("Peter1", "11/3/15 1:50PM", comment));
+      console.log("pushed to new list: " + newList);
+      return {commentList: newList};
     });
   },
 
@@ -25,7 +26,7 @@ var CommentBox = React.createClass({
       <div className='commentBox'>
         <h3>This is the CommentBox</h3>
         <CommentList comments={this.state.commentList} />
-        <CommentForm />
+        <CommentForm commentSubmitHandler={this.commentSubmitHandler} />
       </div>
     );
   }
@@ -47,24 +48,14 @@ var CommentList = React.createClass({
   }
 });
 
-var CommentForm = React.createClass({
-  render: function() {
-    return (
-      <div className='commentForm'>
-        <h4>This is the CommentForm</h4>
-      </div>
-    );
-  }
-});
-
 var Comment = React.createClass({
   render: function() {
     return (
       <div className='comment'>
         <div className='commentInner'>
           <div className='commentHeader row'>
-            <p className='commentAuthor commentHeaderItem col-xs-1'>{this.props.author}</p>
-            <p className='commentCreated commentHeaderItem col-xs-2'>{this.props.createdDate}</p>
+            <p className='commentAuthor commentHeaderItem col-xs-2'>{this.props.author}</p>
+            <p className='commentCreated commentHeaderItem col-xs-3'>{this.props.createdDate}</p>
           </div>
           <p className='commentBody'>{this.props.body}</p>
         </div>
@@ -72,7 +63,31 @@ var Comment = React.createClass({
       </div>
     )
   }
-})
+});
+
+var CommentForm = React.createClass({
+  onSubmitComment: function() {
+    var newCommentText = this.refs.newComment.value;
+
+    if(newCommentText) {
+      this.props.commentSubmitHandler(newCommentText);
+    }
+  },
+
+  render: function() {
+    return (
+      <div>
+        <form>
+          <div className='form-group'>
+            <label htmlFor='comment-body-input'>New Comment</label>
+            <textarea className='form-control' rows='3' ref='newComment'></textarea>
+          </div>
+        </form>
+        <button onClick={this.onSubmitComment} className='btn btn-default'>Add Comment</button>
+      </div>
+    );
+  }
+});
 
 exports.CommentBox = CommentBox;
 exports.CommentList = CommentList;
