@@ -24,7 +24,6 @@ var CommentBox = React.createClass({
   render: function() {
     return (
       <div className='commentBox'>
-        <h3>This is the CommentBox</h3>
         <CommentList comments={this.state.commentList} />
         <CommentForm commentSubmitHandler={this.commentSubmitHandler} />
       </div>
@@ -36,7 +35,6 @@ var CommentList = React.createClass({
   render: function() {
     return (
       <div className='commentList'>
-        <h4>This is the CommentList</h4>
         <hr className='commentDivider'/>
         {this.props.comments.map(function(comment, i) {
           return (
@@ -72,6 +70,8 @@ var CommentForm = React.createClass({
     if(newCommentText) {
       this.props.commentSubmitHandler(newCommentText);
     }
+
+    this.refs.newComment.value = ''; // clear comment box
   },
 
   render: function() {
