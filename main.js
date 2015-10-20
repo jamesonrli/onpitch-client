@@ -2,7 +2,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var CommentBox = require('./components/comments').CommentBox;
+var Profile = require('./components/profile').Profile;
 
 var App = React.createClass({
   getInitialState: function() {
@@ -32,7 +32,7 @@ var App = React.createClass({
         <h1>Welcome to OnPitch</h1>
         <button onClick={this.myProfileHandler} className='btn btn-sm'>My Profile</button>
         <div> {/* replace with navbar */}
-          {this.state.showProfile ? <CommentBox /> : ""}
+          {this.state.showProfile ? <Profile /> : ""}
         </div>
       </div>
     );

@@ -16,7 +16,6 @@ var CommentBox = React.createClass({
     this.setState(function(prevState, currentProp) {
       var newList = prevState.commentList;
       newList.push(new CommentData("Peter1", "11/3/15 1:50PM", comment));
-      console.log("pushed to new list: " + newList);
       return {commentList: newList};
     });
   },
@@ -90,5 +89,3 @@ var CommentForm = React.createClass({
 });
 
 exports.CommentBox = CommentBox;
-exports.CommentList = CommentList;
-exports.CommentForm = CommentForm;
