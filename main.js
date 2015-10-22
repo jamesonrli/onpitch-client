@@ -3,6 +3,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 var Profile = require('./components/profile').Profile;
+var Landing = require('./components/landing').Landing;
 
 var App = React.createClass({
   getInitialState: function() {
@@ -25,15 +26,17 @@ var App = React.createClass({
     this.disableAllPages();
     this.setState({showLanding: true});
   },
-
+  
   render: function() {
     return (
       <div>
         <h1>Welcome to OnPitch</h1>
         <button onClick={this.myProfileHandler} className='btn btn-sm'>My Profile</button>
+		<button onClick={this.landingHandler} className='btn btn-sm'>My Landing</button>
         <div> {/* replace with navbar */}
-          {this.state.showProfile ? <Profile /> : ""}
-        </div>
+		  {this.state.showProfile ? <Profile /> : ""}
+		  {this.state.showLanding ? <Landing /> : ""}
+        </div>		
       </div>
     );
   }
