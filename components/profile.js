@@ -39,12 +39,13 @@ var ProfileBox = React.createClass({
 var ProfileIntro = React.createClass({
   render: function() {
     return (
-      <div className='profileIntro'>
-        {/* remove this style if possible :( */}
-        <img className='profileImage thumbnail' style={{width:'100px'},{height:'100px'}} src='http://icons.iconarchive.com/icons/hopstarter/3d-cartoon-vol3/256/Internet-Explorer-icon.png' />
-        <p className='profileDisplayName'>{this.props.user.name}</p>
-        <p className='profileHeadlineMessage'>{this.props.user.headline}</p>
-        <button className='btn btn-sm'>Send Message</button>
+      <div className='profileIntro container'>
+        <img className='profileImage thumbnail col-sm-4' src='http://icons.iconarchive.com/icons/hopstarter/3d-cartoon-vol3/256/Internet-Explorer-icon.png' />
+        <div className='col-sm-6'>
+          <p className='profileDisplayName'>{this.props.user.name}</p>
+          <p className='profileHeadlineMessage'>{this.props.user.headline}</p>
+        </div>
+        <button className='btn btn-sm col-sm-2'>Send Message</button>
       </div>
     );
   }
@@ -58,7 +59,7 @@ var ProfileProjects = React.createClass({
           return (
             <div key={i} className='profileProjectBlock container col-sm-6'>
               <div className="col-xs-4">
-                <img className='profileProjectImage thumbnail' style={{width:'100px'},{height:'100px'}} src='http://icons.iconarchive.com/icons/hopstarter/3d-cartoon-vol3/256/Internet-Explorer-icon.png' />
+                <img className='profileProjectImage thumbnail' src='http://icons.iconarchive.com/icons/hopstarter/3d-cartoon-vol3/256/Internet-Explorer-icon.png' />
               </div>
               <div className='profileProjectDetails col-xs-8'>
                 <p className="list-group-item-heading">{project.name}</p>
