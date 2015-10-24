@@ -31,8 +31,12 @@ var App = React.createClass({
     return (
       <div>
         <h1>Welcome to OnPitch</h1>
-        <button onClick={this.myProfileHandler} className='btn btn-sm'>My Profile</button>
-		<button onClick={this.landingHandler} className='btn btn-sm'>My Landing</button>
+		<div className='navbar navbar-default' role='navigation'>
+			<div className='container'>
+				<button onClick={this.myProfileHandler} className='btn btn-sm navbar-btn'>My Profile</button>
+				<button onClick={this.landingHandler} className='btn btn-sm'>My Landing</button>
+			</div>
+		</div>
         <div> {/* replace with navbar */}
 		  {this.state.showProfile ? <Profile /> : ""}
 		  {this.state.showLanding ? <Landing /> : ""}

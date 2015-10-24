@@ -11,7 +11,7 @@
     "react-dom": "^0.14.0"
   },
   "devDependencies": {
-    "babelify": "^6.3.0"
+    "babelify": "^6.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
