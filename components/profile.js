@@ -57,7 +57,7 @@ var ProfileProjects = React.createClass({
       <div className='profileProjectList container-fluid'>
         {this.props.projects.map(function(project, i) {
           return (
-            <div key={i} className='profileProjectBlock container col-sm-6'>
+            <div key={i} className='profileProjectBlock container col-md-6'>
               <div className="col-xs-4">
                 <img className='profileProjectImage thumbnail' src='http://icons.iconarchive.com/icons/hopstarter/3d-cartoon-vol3/256/Internet-Explorer-icon.png' />
               </div>
