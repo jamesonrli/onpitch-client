@@ -16,6 +16,7 @@
     "babelify": "^6.4.0"
   },
   "scripts": {
+    "initme": "npm install -g gulp",
     "postinstall": "npm run rejoice",
     "rejoice": "echo --------------on-pitch ready----------------",
     "start": "node server.js"
