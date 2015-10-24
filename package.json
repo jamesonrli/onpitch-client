@@ -9,11 +9,11 @@
     "react-dom": "^0.14.0"
   },
   "devDependencies": {
+    "babelify": "^6.4.0",
+    "browserify": "^11.2.0",
     "gulp": "^3.9.0",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.4.0",
-    "browserify": "^11.2.0",
-    "babelify": "^6.4.0"
+    "watchify": "^3.4.0"
   },
   "scripts": {
     "initme": "npm install -g gulp",

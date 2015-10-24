@@ -10,7 +10,10 @@ module.exports.runner = function() {
 }
 
 module.exports.getBrow = getbrow = function() {
-  return browserify('./main.js', {debug: process.env.NODE_ENV=='development'}).transform(babelify);
+  // insertGlobals takes more space in output files but with faster build times
+  return browserify('./main.js',
+    {debug: process.env.NODE_ENV=='development', insertGlobals: process.env.NODE_ENV=='development'})
+    .transform(babelify);
 }
 
 module.exports.bun = bun = function(brow) {
