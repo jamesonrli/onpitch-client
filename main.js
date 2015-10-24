@@ -4,17 +4,19 @@ var ReactDOM = require('react-dom');
 
 var Profile = require('./components/profile').Profile;
 var Landing = require('./components/landing').Landing;
+var SignUp = require('./components/signUp').SignUp;
 
 var App = React.createClass({
   getInitialState: function() {
     return {
       showProfile: false,
-      showLanding: true
+      showLanding: true,
+	  showLogin: false
     };
   },
 
   disableAllPages: function() {
-    this.setState({showProfile: false, showLanding: false});
+    this.setState({showProfile: false, showLanding: false, showLogin: false});
   },
 
   myProfileHandler: function() {
@@ -27,6 +29,11 @@ var App = React.createClass({
     this.setState({showLanding: true});
   },
   
+  loginHandler: function() {
+	 this.disableAllPages();
+	 this.setState({showLogin: true});	
+  },
+  
   render: function() {
     return (
       <div>
@@ -35,11 +42,13 @@ var App = React.createClass({
 			<div className='container'>
 				<button onClick={this.myProfileHandler} className='btn btn-sm navbar-btn'>My Profile</button>
 				<button onClick={this.landingHandler} className='btn btn-sm'>My Landing</button>
+				<button onClick={this.loginHandler} className='btn btn-sm'>My SignUp</button>
 			</div>
 		</div>
         <div> {/* replace with navbar */}
 		  {this.state.showProfile ? <Profile /> : ""}
 		  {this.state.showLanding ? <Landing /> : ""}
+		  {this.state.showLogin ? <SignUp /> : ""}
         </div>		
       </div>
     );
