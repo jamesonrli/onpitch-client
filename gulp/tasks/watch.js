@@ -1,4 +1,5 @@
 var watchify = require('watchify');
+var notifier = require('node-notifier');
 var browserify = require('./browserify');
 
 module.exports.runner = function() {
@@ -6,8 +7,14 @@ module.exports.runner = function() {
 
   watchedbun.on('update', function() {
     browserify.bun(watchedbun);
-    console.log('-> rebuild complete...');
+    console.log('\n-> rebuild started...');
+  });
+
+  watchedbun.on('time', function(time) {
+    console.log('  --> rebuild completed in ' + time + 'ms...');
   });
 
   browserify.bun(watchedbun);
-}
+
+  return watchedbun;
+};
