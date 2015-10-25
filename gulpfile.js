@@ -7,3 +7,5 @@ var gulp = require('./gulp')([
 gulp.task('build', ['browserify']);
 gulp.task('build-watch', ['watch']);
 gulp.task('build-watch-notify', ['notify']);
+
+gulp.task('default', ['build']);

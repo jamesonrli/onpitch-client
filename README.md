@@ -8,3 +8,7 @@
 # continuously build after any file changes
 1. Run 'gulp build-watch'
 2. Leave the terminal open (any files changes in the project will automatically rebuild)
+
+# continuously build after any file changes with notifications
+1. Run 'gulp build-watch-notify'
+2. Leave the terminal open (any files changes in the project will automatically rebuild)

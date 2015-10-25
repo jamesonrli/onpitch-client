@@ -4,23 +4,23 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.13.3",
-    "flux": "^2.1.1",
-    "object-assign": "^4.0.1",
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
-  },
-  "devDependencies": {
     "babelify": "^6.4.0",
     "browserify": "^11.2.0",
+    "express": "^4.13.3",
+    "flux": "^2.1.1",
     "gulp": "^3.9.0",
+    "object-assign": "^4.0.1",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "devDependencies": {
     "node-notifier": "^4.3.1",
-    "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.4.0"
   },
   "scripts": {
     "initme": "npm install -g gulp && npm install --dev && npm install",
-    "postinstall": "npm run rejoice",
+    "postinstall": "gulp && npm run rejoice",
     "rejoice": "echo --------------on-pitch ready----------------",
     "start": "node server.js"
   },
@@ -33,5 +33,8 @@
   "bugs": {
     "url": "https://github.com/jamesonrli/onpitch-client/issues"
   },
-  "homepage": "https://github.com/jamesonrli/onpitch-client#readme"
+  "homepage": "https://github.com/jamesonrli/onpitch-client#readme",
+  "jshintConfig": {
+    "esnext": true
+  }
 }
