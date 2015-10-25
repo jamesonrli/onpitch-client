@@ -23,7 +23,7 @@ var ProfileBox = React.createClass({
         new ProjectData("My Awesome Project", "This is amazing project description", "/url/to/project/image"),
         new ProjectData("My Awesome Project", "This is amazing project description", "/url/to/project/image")
       ]
-    }
+    };
   },
 
   render: function() {
@@ -45,7 +45,10 @@ var ProfileIntro = React.createClass({
           <p className='profileDisplayName'>{this.props.user.name}</p>
           <p className='profileHeadlineMessage'>{this.props.user.headline}</p>
         </div>
-        <button className='btn btn-sm col-sm-2'>Send Message</button>
+        <div className='col-sm-2'>
+          <button className='btn btn-sm'>Send Message</button>
+          <button className='btn btn-sm'>Edit Profile</button>
+        </div>
       </div>
     );
   }
