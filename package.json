@@ -19,7 +19,7 @@
     "watchify": "^3.4.0"
   },
   "scripts": {
-    "initme": "npm install -g gulp",
+    "initme": "npm install -g gulp && npm install --dev && npm install",
     "postinstall": "npm run rejoice",
     "rejoice": "echo --------------on-pitch ready----------------",
     "start": "node server.js"
