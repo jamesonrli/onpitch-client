@@ -23,12 +23,11 @@ var NavBar = React.createClass({
               <span className="icon-bar" />
               <span className="icon-bar" />
             </button>
-            <a className="navbar-brand" href="#">OnPitch</a>
+            <a className="navbar-brand" onClick={this.landingHandler}>OnPitch</a>
           </div>
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav">
-              <li><a onClick={this.landingHandler}>Landing</a></li>
               <li><a onClick={this.myProfileHandler}>My Profile</a></li>
             </ul>
           </div>
