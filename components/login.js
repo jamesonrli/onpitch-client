@@ -2,12 +2,19 @@ var gapi_clientId = "43916539739-kg913v794v0egih5l4en19eermk35qgl.apps.googleuse
 var SCOPE = ["https://www.googleapis.com/auth/plus.login"];
 
 var React = require('react');
+var MainActions = require('../actions/main_actions');
+var OnPitchConstants = require('../common/constants');
 
 var Login = React.createClass({
+
+  signUpHandler: function() {
+    MainActions.changePage(OnPitchConstants.PAGE_SIGN_UP);
+  },
+
   render: function() {
     return (
       <div className='btn-group'>
-        <button className='btn btn-sm btn-primary'> Sign Up </button>
+        <button className='btn btn-sm btn-primary' onClick={this.signUpHandler}> Sign Up </button>
         <button className='btn btn-sm btn-default'> Login </button>
       </div>
     );
