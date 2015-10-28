@@ -12,3 +12,8 @@
 # continuously build after any file changes with notifications
 1. Run 'gulp build-watch-notify'
 2. Leave the terminal open (any files changes in the project will automatically rebuild)
+
+# Need to test locally on node.js cmd?
+1. Navigate to the main directory ("...\onpitch-client\.")
+2. Run 'http-server .'
+Or just run 'http-server <path>'
