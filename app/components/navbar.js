@@ -30,6 +30,10 @@ var NavBar = React.createClass({
             <ul className="nav navbar-nav">
               <li><a onClick={this.myProfileHandler}>My Profile</a></li>
             </ul>
+			{/** probably need to wait for signin --> **/}
+			<ul className="nav navbar-nav pull-right">
+				<li><a>Log Out</a></li>
+			</ul>
           </div>
         </div>
       </div>
