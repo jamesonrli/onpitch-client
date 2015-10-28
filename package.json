@@ -2,7 +2,7 @@
   "name": "onpitch-client",
   "version": "0.0.1",
   "description": "",
-  "main": "server.js",
+  "main": "./app/server.js",
   "dependencies": {
     "babelify": "^6.4.0",
     "browserify": "^11.2.0",
