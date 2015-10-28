@@ -13,10 +13,10 @@ var Login = React.createClass({
 
   render: function() {
     return (
-      <div className='btn-group'>
-        <button className='btn btn-sm btn-primary' onClick={this.signUpHandler}> Sign Up </button>
-        <button className='btn btn-sm btn-default'> Login </button>
-      </div>
+		<div className='btn-group'>
+			<button className='btn btn-sm btn-primary' onClick={this.signUpHandler}> Sign Up </button>
+			<button className='btn btn-sm btn-default'> Login </button>
+		</div>
     );
   }
 });
