@@ -1,14 +1,14 @@
 var UtilConstants = require('./util-constants');
-var WebApiUtils = require('./web-api-utils');
+var HttpUtils = require('./http-utils');
 
 // endpoints reference: https://www.parse.com/docs/rest/guide/
 
-module.exports = {
+var ParseUtils = {
   getUserProfile: function(userId) {
     var restrict = JSON.stringify({
-      user: {
+      userId: {
         __type: 'Pointer',
-        className: 'User',
+        className: '_User',
         objectId: userId
       }
     });
@@ -16,17 +16,21 @@ module.exports = {
     var getOptions = {
       host: UtilConstants.PARSE_HOST,
       method: UtilConstants.GET,
-      header: {
+      headers: {
         'X-Parse-Application-Id': UtilConstants.PARSE_APP_ID,
         'X-Parse-REST-API-Key': UtilConstants.PARSE_REST_KEY
       },
-      path: '/1/classes/Profile?where=' + restrict
+      path: '/1/classes/Profile?where=' + encodeURIComponent(restrict) + '&include=userId'
     };
 
-    WebApiUtils.makeRequest(getOptions,
+    HttpUtils.makeRequest(getOptions,
       function(result) {
+        var ProfileActions = require('../app/actions/profile_actions');
+
         // on complete, create action here
-        console.log(result);
+        if(result.results.length > 0) {
+          ProfileActions.updateProfile(result.results[0]);
+        }
       },
       function(error) {
         // on error
@@ -34,3 +38,5 @@ module.exports = {
       });
   }
 };
+
+module.exports = ParseUtils;

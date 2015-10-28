@@ -14,10 +14,11 @@ var Profile = React.createClass({
 
 var UserData = require('../data/user').UserData;
 var ProjectData = require('../data/project').ProjectData;
+var ProfileStore = require('../stores/profile_store');
 var ProfileBox = React.createClass({
   getInitialState: function() {
     return {
-      user: new UserData("John Smith", "This is my awesome profile", "/url/to/profile/image"),
+      profile: ProfileStore.getCurrentProfile(),
       projects: [
         new ProjectData("My Awesome Project", "This is amazing project description", "/url/to/project/image"),
         new ProjectData("My Awesome Project", "This is amazing project description", "/url/to/project/image"),
@@ -26,13 +27,25 @@ var ProfileBox = React.createClass({
     };
   },
 
+  componentDidMount: function() {
+    ProfileStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount: function() {
+    ProfileStore.removeChangeListener(this._onChange);
+  },
+
   render: function() {
     return (
       <div>
-        <ProfileIntro user={this.state.user}/>
+        <ProfileIntro profile={this.state.profile}/>
         <ProfileProjects projects={this.state.projects}/>
       </div>
     );
+  },
+
+  _onChange: function() {
+    this.setState({profile: ProfileStore.getCurrentProfile()});
   }
 });
 
@@ -42,8 +55,8 @@ var ProfileIntro = React.createClass({
       <div className='profileIntro container'>
         <img className='profileImage thumbnail col-sm-4' src='http://icons.iconarchive.com/icons/hopstarter/3d-cartoon-vol3/256/Internet-Explorer-icon.png' />
         <div className='col-sm-6'>
-          <p className='profileDisplayName'>{this.props.user.name}</p>
-          <p className='profileHeadlineMessage'>{this.props.user.headline}</p>
+          <p className='profileDisplayName'>{this.props.profile.firstName + ' ' + this.props.profile.lastName}</p>
+          <p className='profileHeadlineMessage'>{this.props.profile.headline}</p>
         </div>
         <div className='col-sm-2'>
           <button className='btn btn-sm'>Send Message</button>

@@ -3,18 +3,23 @@ var AppDispatcher = require('../dispatcher/app_dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
-var CHANGE_EVENT = OnPitchConstants.PAGE_CHANGE;
+var CHANGE_EVENT = OnPitchConstants.PROFILE_CHANGE;
+var _currentProfile = null;
 
-var _currentPage = OnPitchConstants.PAGE_LANDING; // init page is landing
-
-function setCurrentPage(page) {
-  _currentPage = page;
+function setCurrentProfile(profile) {
+  _currentProfile = profile;
 }
 
-var MainStore = assign(new EventEmitter(), {
+var ProfileActions = require('../actions/profile_actions');
+var Profile = require('../data/profile');
+var ProfileStore = assign(new EventEmitter(), {
 
-  getCurrentPage: function() {
-    return _currentPage;
+  getCurrentProfile: function() {
+    if(!_currentProfile) {
+      _currentProfile = new Profile();
+      ProfileActions.getProfile('f9D8M07W6b');
+    }
+    return _currentProfile;
   },
 
   emitChange: function() {
@@ -31,12 +36,12 @@ var MainStore = assign(new EventEmitter(), {
 
   dispatchIndex: AppDispatcher.register(function(payload) {
     var action = payload.action;
-    var newPage = action.pageName;
+    var profileData = action.profileData;
 
     switch(action.actionType) {
-      case OnPitchConstants.PAGE_CHANGE: {
-        setCurrentPage(newPage);
-        MainStore.emitChange();
+      case OnPitchConstants.PROFILE_CHANGE: {
+        setCurrentProfile(profileData);
+        ProfileStore.emitChange();
         break;
       }
     }
@@ -45,4 +50,4 @@ var MainStore = assign(new EventEmitter(), {
   })
 });
 
-module.exports = MainStore;
+module.exports = ProfileStore;
