@@ -12,11 +12,11 @@
     "object-assign": "^4.0.1",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "vinyl-source-stream": "^1.1.0"
-  },
-  "devDependencies": {
+    "vinyl-source-stream": "^1.1.0",
     "node-notifier": "^4.3.1",
     "watchify": "^3.4.0"
+  },
+  "devDependencies": {
   },
   "scripts": {
     "initme": "npm install -g gulp && npm install --dev && npm install",
