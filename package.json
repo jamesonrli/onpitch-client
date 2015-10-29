@@ -20,8 +20,7 @@
   },
   "scripts": {
     "initme": "npm install -g gulp && npm install --dev && npm install",
-    "postinstall": "gulp && npm run rejoice",
-    "rejoice": "echo --------------on-pitch ready---------------- &> /dev/null",
+    "postinstall": "gulp",
     "start": "node server.js"
   },
   "repository": {
