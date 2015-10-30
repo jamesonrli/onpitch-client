@@ -1,4 +1,5 @@
 var React = require('react');
+var OnPitchConstants = require('../common/constants');
 
 var CommentBox = require('./comments').CommentBox;
 var Profile = React.createClass({
@@ -19,20 +20,18 @@ var ProfileBox = React.createClass({
   getInitialState: function() {
     return {
       profile: ProfileStore.getCurrentProfile(),
-      projects: [
-        new ProjectData("My Awesome Project", "This is amazing project description", "/url/to/project/image"),
-        new ProjectData("My Awesome Project", "This is amazing project description", "/url/to/project/image"),
-        new ProjectData("My Awesome Project", "This is amazing project description", "/url/to/project/image")
-      ]
+      projects: ProfileStore.getCurrentProjects()
     };
   },
 
   componentDidMount: function() {
-    ProfileStore.addChangeListener(this._onChange);
+    ProfileStore.addChangeListener(OnPitchConstants.PROFILE_CHANGE, this._onChangeProfile);
+    ProfileStore.addChangeListener(OnPitchConstants.PROJECTS_CHANGE, this._onChangeProjects);
   },
 
   componentWillUnmount: function() {
-    ProfileStore.removeChangeListener(this._onChange);
+    ProfileStore.removeChangeListener(OnPitchConstants.PROFILE_CHANGE, this._onChangeProfile);
+    ProfileStore.removeChangeListener(OnPitchConstants.PROJECTS_CHANGE, this._onChangeProjects);
   },
 
   render: function() {
@@ -44,8 +43,16 @@ var ProfileBox = React.createClass({
     );
   },
 
-  _onChange: function() {
-    this.setState({profile: ProfileStore.getCurrentProfile()});
+  _onChangeProfile: function() {
+    this.setState({
+      profile: ProfileStore.getCurrentProfile(),
+    });
+  },
+
+  _onChangeProjects: function() {
+    this.setState({
+      projects: ProfileStore.getCurrentProjects()
+    });
   }
 });
 
@@ -53,7 +60,7 @@ var ProfileIntro = React.createClass({
   render: function() {
     return (
       <div className='profileIntro container'>
-        <img className='profileImage thumbnail col-sm-4' src='http://icons.iconarchive.com/icons/hopstarter/3d-cartoon-vol3/256/Internet-Explorer-icon.png' />
+        <img className='profileImage thumbnail col-sm-4' src={this.props.profile.imageURL} />
         <div className='col-sm-6'>
           <p className='profileDisplayName'>{this.props.profile.firstName + ' ' + this.props.profile.lastName}</p>
           <p className='profileHeadlineMessage'>{this.props.profile.headline}</p>
@@ -75,7 +82,7 @@ var ProfileProjects = React.createClass({
           return (
             <div key={i} className='profileProjectBlock container col-md-6'>
               <div className="col-xs-4">
-                <img className='profileProjectImage thumbnail' src='http://icons.iconarchive.com/icons/hopstarter/3d-cartoon-vol3/256/Internet-Explorer-icon.png' />
+                <img className='profileProjectImage thumbnail' src={project.imageURL} />
               </div>
               <div className='profileProjectDetails col-xs-8'>
                 <p className="list-group-item-heading">{project.name}</p>

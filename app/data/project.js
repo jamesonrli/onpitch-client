@@ -4,4 +4,4 @@ var ProjectData = function (name, description, imageURL) {
   this.imageURL = imageURL;
 };
 
-exports.ProjectData = ProjectData;
+module.exports = ProjectData;
