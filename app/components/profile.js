@@ -57,13 +57,39 @@ var ProfileBox = React.createClass({
 });
 
 var ProfileIntro = React.createClass({
+  componentDidUpdate: function() {
+    // name edit
+    $('#profileNameEdit').editable({
+      type: 'text',
+      title: 'Enter your name',
+      placement: 'right',
+      value: (this.props.profile.firstName + ' ' + this.props.profile.lastName),
+      success: function(response, newValue) {
+        console.log('name, got it');
+      }
+    });
+
+    // headline edit
+    $('#profileHeadlineEdit').editable({
+      type: 'textarea',
+      title: 'Enter your message',
+      placement: 'right',
+      value: this.props.profile.headline,
+      success: function(response, newValue) {
+        console.log('headline, got it');
+      }
+    });
+  },
+
   render: function() {
     return (
       <div className='profileIntro container'>
         <img className='profileImage thumbnail col-sm-4' src={this.props.profile.imageURL} />
         <div className='col-sm-6'>
-          <p className='profileDisplayName'>{this.props.profile.firstName + ' ' + this.props.profile.lastName}</p>
-          <p className='profileHeadlineMessage'>{this.props.profile.headline}</p>
+          <p className='profileDisplayName'>
+            <a href='#' id='profileNameEdit' className='editable editable-click'>{this.props.profile.firstName + ' ' + this.props.profile.lastName}</a>
+          </p>
+          <p className='profileHeadlineMessage'><a href='#' id='profileHeadlineEdit' className='editable editable-click'>{this.props.profile.headline}</a></p>
         </div>
         <div className='col-sm-2'>
           <button className='btn btn-sm'>Send Message</button>
