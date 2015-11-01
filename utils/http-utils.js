@@ -1,7 +1,7 @@
 var https = require('https');
 
 module.exports = {
-  makeRequest: function(options, onEnd, onError) {
+  makeRequest: function(options, onEnd, onError, body) {
     var req = https.request(options, function(res) {
       var result = "";
 
@@ -17,6 +17,6 @@ module.exports = {
     req.on('error', function(e) {
       onError(e);
     });
-    req.end();
-  }
+    req.end(body);
+  },
 };

@@ -13,7 +13,6 @@ var Profile = React.createClass({
   }
 });
 
-var UserData = require('../data/user').UserData;
 var ProjectData = require('../data/project').ProjectData;
 var ProfileStore = require('../stores/profile_store');
 var ProfileBox = React.createClass({
@@ -56,29 +55,55 @@ var ProfileBox = React.createClass({
   }
 });
 
-var ProfileIntro = React.createClass({
-  componentDidUpdate: function() {
-    // name edit
-    $('#profileNameEdit').editable({
-      type: 'text',
-      title: 'Enter your name',
-      placement: 'right',
-      value: (this.props.profile.firstName + ' ' + this.props.profile.lastName),
-      success: function(response, newValue) {
-        console.log('name, got it');
-      }
-    });
+var ProfileActions = require('../actions/profile_actions');
+function updateEditables(binder) {
+  // name edit
+  $('#profileNameEdit').editable({
+    type: 'text',
+    title: 'Enter your name',
+    placement: 'right',
+    value: (binder.props.profile.firstName + ' ' + binder.props.profile.lastName),
+    success: function(response, newValue) {
+      console.log(binder.props.profile);
+      binder.setState({
+        profile: {
+          firstName: newValue.split(' ')[0] || '',
+          lastName: newValue.split(' ')[1] || ''
+        }
+      });
+      ProfileActions.userChanges(binder.props.profile.userId, {
+        firstName: newValue.split(' ')[0] || '',
+        lastName: newValue.split(' ')[1] || ''
+      });
+    }
+  });
 
-    // headline edit
-    $('#profileHeadlineEdit').editable({
-      type: 'textarea',
-      title: 'Enter your message',
-      placement: 'right',
-      value: this.props.profile.headline,
-      success: function(response, newValue) {
-        console.log('headline, got it');
-      }
-    });
+  // headline edit
+  $('#profileHeadlineEdit').editable({
+    type: 'textarea',
+    title: 'Enter your message',
+    placement: 'right',
+    value: binder.props.profile.headline,
+    success: function(response, newValue) {
+      binder.setState({
+        profile: {
+          headline: newValue
+        }
+      });
+      ProfileActions.profileChanges(binder.props.profile.profileId, {
+        headline: newValue
+      });
+    }
+  });
+}
+
+var ProfileIntro = React.createClass({
+  componentDidMount: function() {
+    updateEditables(this);
+  },
+
+  componentDidUpdate: function() {
+    updateEditables(this);
   },
 
   render: function() {

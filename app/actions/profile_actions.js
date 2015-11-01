@@ -14,7 +14,9 @@ var ProfileActions = {
   updateProfile: function(profileData) {
     AppDispatcher.handleDataAction({
       actionType: OnPitchConstants.PROFILE_CHANGE,
-      profileData: new Profile(profileData.userId.firstName, profileData.userId.lastName, profileData.profileImage.url, profileData.headline)
+      profileData: new Profile(profileData.userId.objectId,
+        profileData.userId.firstName, profileData.userId.lastName,
+        profileData.objectId, profileData.profileImage.url, profileData.headline)
     });
   },
 
@@ -33,6 +35,14 @@ var ProfileActions = {
         return processedList;
       })()
     });
+  },
+
+  profileChanges: function(profileId, profileChanges) {
+    WebApiUtils.updateProfile(profileId, profileChanges);
+  },
+
+  userChanges: function(userId, userChanges) {
+    WebApiUtils.updateUser(userId, userChanges);
   }
 };
 

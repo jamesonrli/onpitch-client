@@ -4,5 +4,6 @@ module.exports = {
   PARSE_REST_KEY: 'kdOSiRQz7qfHFIXhHoTXREzK2sMIUEzfWILP3Yry',
   PARSE_HOST: 'api.parse.com',
 
-  GET: 'GET'
+  GET: 'GET',
+  PUT: 'PUT'
 };
