@@ -1,8 +1,8 @@
 var React = require('react');
 
 var INTRO = "Hello, this is an intro tab!";
-var WHO = "I AM YO FATHER.";
-var MORE = "I AM YO MOTHA ALSO";
+var WHO = "Link 2";
+var MORE = "Link 3";
 
 var Login = require('./login.js').Login;
 var Landing = React.createClass({
