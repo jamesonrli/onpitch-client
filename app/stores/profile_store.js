@@ -3,11 +3,15 @@ var AppDispatcher = require('../dispatcher/app_dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
-var CHANGE_EVENT = OnPitchConstants.PROFILE_CHANGE;
 var _currentProfile = null;
+var _currentProjects = null;
 
 function setCurrentProfile(profile) {
   _currentProfile = profile;
+}
+
+function setCurrentProjects(projects) {
+  _currentProjects = projects;
 }
 
 var ProfileActions = require('../actions/profile_actions');
@@ -22,26 +26,39 @@ var ProfileStore = assign(new EventEmitter(), {
     return _currentProfile;
   },
 
-  emitChange: function() {
-    this.emit(CHANGE_EVENT);
+  getCurrentProjects: function() {
+    if(!_currentProjects) {
+      _currentProjects = [];
+      ProfileActions.getProjects('f9D8M07W6b');
+    }
+
+    return _currentProjects;
   },
 
-  addChangeListener: function(callback) {
-    this.on(CHANGE_EVENT, callback);
+  emitChange: function(actionType) {
+    this.emit(actionType);
   },
 
-  removeChangeListener: function(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
+  addChangeListener: function(actionType, callback) {
+    this.on(actionType, callback);
+  },
+
+  removeChangeListener: function(actionType, callback) {
+    this.removeListener(actionType, callback);
   },
 
   dispatchIndex: AppDispatcher.register(function(payload) {
     var action = payload.action;
-    var profileData = action.profileData;
 
     switch(action.actionType) {
       case OnPitchConstants.PROFILE_CHANGE: {
-        setCurrentProfile(profileData);
-        ProfileStore.emitChange();
+        setCurrentProfile(action.profileData);
+        ProfileStore.emitChange(action.actionType);
+        break;
+      }
+      case OnPitchConstants.PROJECTS_CHANGE: {
+        setCurrentProjects(action.projectsData);
+        ProfileStore.emitChange(action.actionType);
         break;
       }
     }

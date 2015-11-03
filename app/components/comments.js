@@ -8,7 +8,7 @@ var CommentBox = React.createClass({
         new CommentData("Peter", "11/1/12 11:12AM", "This is a comment"),
         new CommentData("Peter", "11/2/12 12:50PM", "This is a comment")
       ]
-    }
+    };
   },
 
   commentSubmitHandler: function(comment) {
@@ -58,7 +58,7 @@ var Comment = React.createClass({
         </div>
         <hr className='commentDivider'/>
       </div>
-    )
+    );
   }
 });
 
