@@ -13,7 +13,7 @@ var Login = React.createClass({
 			gapi.auth2.init({"client_id" : gapi_clientId, "cookie_policy": "none"});
 		});
 		
-		gapi.load('client').then(function() {
+		gapi.load('client', function() {
 			gapi.client.load('plus', 'v1');
 		});				
 	},
@@ -36,6 +36,9 @@ var Login = React.createClass({
 		var request = gapi.client.plus.people.get({'userId':'me'});
 		request.then(function(resp) {
 			myImage = resp.result.image.url;				
+			//Test: $('#container').after('<img src='+myImage+'></src>');
+			
+			return <div><img src={resp.result.image.url} alt="profile-pic" className="img-circle"></img></div>
 		});
 	},
 	
