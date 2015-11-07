@@ -2,36 +2,26 @@
 var express = require('express');
 var app = express();
 
-app.set('port', (process.env.PORT || 5050));
-
-app.use(express.static(__dirname + '/public'));
-
-app.listen(app.get('port'), function() {
-  console.log("Node app is running at localhost:" + app.get('port'));
-});
-
-// OnPitch API
-var restify = require('restify');
-var server = restify.createServer();
-
 var Profile = require('./server/controllers/profile');
 
-server.get('/userProfile/:id', Profile.getUserProfile);
-server.get('/userProjects/:id', Profile.getUserProjects);
+app.set('port', (process.env.PORT || 5050));
 
-server.use(function(req, res, next) {
+/************* Serve public folder ***********/
+app.use(express.static(__dirname + '/public'));
+/***************** END ***********************/
+
+/************* OnPitch API *******************/
+app.get('/userProfile/:id', Profile.getUserProfile);
+app.get('/userProjects/:id', Profile.getUserProjects);
+/***************** END ***********************/
+
+app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   return next();
 });
 
-var port = process.env.PORT || 5050;
-server.listen(port, function(err) {
-  if(err) {
-    console.log(err);
-  }
-  else {
-    console.log('Server is ready at : ' + port);
-  }
+app.listen(app.get('port'), function() {
+  console.log("Node app is running at localhost:" + app.get('port'));
 });
 
 if(process.env.environment == 'production') {
