@@ -1,5 +1,5 @@
 var UtilConstants = require('./util-constants');
-var HttpUtils = require('./http-utils');
+var HttpsUtils = require('./https-utils');
 
 // endpoints reference: https://www.parse.com/docs/rest/guide/
 
@@ -16,7 +16,7 @@ var ParseUtils = {
       path: '/1/classes/Profile/' + profileId
     };
 
-    HttpUtils.makeRequest(putOptions,
+    HttpsUtils.makeRequest(putOptions,
       function(result) {
         // on complete
         console.log('request complete' + JSON.stringify(result));
@@ -41,7 +41,7 @@ var ParseUtils = {
       path: '/1/classes/_User/' + userId
     };
 
-    HttpUtils.makeRequest(putOptions,
+    HttpsUtils.makeRequest(putOptions,
       function(result) {
         // on complete
         console.log('request complete' + JSON.stringify(result));
@@ -54,7 +54,7 @@ var ParseUtils = {
     );
   },
 
-  getUserProfile: function(userId, onResult) {
+  getUserProfile: function(userId, onResult, orError) {
     var restrict = JSON.stringify({
       userId: {
         __type: 'Pointer',
@@ -73,7 +73,7 @@ var ParseUtils = {
       path: '/1/classes/Profile?where=' + encodeURIComponent(restrict) + '&include=userId'
     };
 
-    HttpUtils.makeRequest(getOptions,
+    HttpsUtils.makeRequest(getOptions,
       function(result) {
         // on complete, create action here
         if(result.results.length > 0) {
@@ -83,10 +83,11 @@ var ParseUtils = {
       function(error) {
         // on error
         console.error(error);
+        onError(error);
       });
   },
 
-  getUserProjects: function(userId, onResult) {
+  getUserProjects: function(userId, onResult, onError) {
     var restrict = JSON.stringify({
       userId: {
         __type: 'Pointer',
@@ -105,7 +106,7 @@ var ParseUtils = {
       path: '/1/classes/Project?where=' + encodeURIComponent(restrict) + '&include=userId'
     };
 
-    HttpUtils.makeRequest(getOptions,
+    HttpsUtils.makeRequest(getOptions,
       function(result) {
         // on complete, create action here
         if(result.results.length > 0) {
@@ -115,7 +116,9 @@ var ParseUtils = {
       function(error) {
         // on error
         console.error(error);
-      });
+        onError(error);
+      }
+    );
   }
 };
 
