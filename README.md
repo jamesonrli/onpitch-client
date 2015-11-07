@@ -17,3 +17,9 @@
 1. Navigate to the main directory ("...\onpitch-client\.")
 2. Run 'http-server .'
 Or just run 'http-server <path>'
+
+# Testing Google Login locally
+Note: For an odd reason, you cannot authenticate properly unless you change the address to local host manually.
+For example: 
+	1. You're on "127.0.0.1:8080/public/index.html".
+	2. Replace the address to: "localhost:8080/public/index.html"

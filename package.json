@@ -2,22 +2,22 @@
   "name": "onpitch-client",
   "version": "0.0.1",
   "description": "",
-  "main": "./app/server.js",
+  "main": "server.js",
   "dependencies": {
     "babelify": "^6.4.0",
     "browserify": "^11.2.0",
     "express": "^4.13.3",
     "flux": "^2.1.1",
     "gulp": "^3.9.0",
+    "node-notifier": "^4.3.1",
     "object-assign": "^4.0.1",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
+    "restify": "^4.0.3",
     "vinyl-source-stream": "^1.1.0",
-    "node-notifier": "^4.3.1",
     "watchify": "^3.4.0"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "scripts": {
     "initme": "npm install -g gulp && npm install --dev && npm install",
     "postinstall": "gulp",

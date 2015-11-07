@@ -1,6 +1,6 @@
 var AppDispatcher = require('../dispatcher/app_dispatcher');
 var OnPitchConstants = require('../common/constants');
-var WebApiUtils = require('../../utils/web-api-utils');
+var WebApiUtils = require('../utils/web-api-utils');
 
 var Profile = require('../data/profile');
 var Project = require('../data/project');

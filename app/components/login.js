@@ -5,29 +5,25 @@ var React = require('react');
 var MainActions = require('../actions/main_actions');
 var OnPitchConstants = require('../common/constants');
 
-var Login = React.createClass({
+// Automatically signs user through google. 
+	// May need to change to prompt each time.
+var gSignIn = function() {
+	var googleUser = gapi.auth2.getAuthInstance();
+	if (googleUser && !googleUser.isSignedIn.get()) googleUser.signIn();
+}
 
+var Login = React.createClass({	
 	// Loads needed APIs
 	googleAuth: function () {
 		gapi.load("auth2", function() {
-			gapi.auth2.init({"client_id" : gapi_clientId, "cookie_policy": "none"});
-		});
-		
-		gapi.load('client').then(function() {
-			gapi.client.load('plus', 'v1');
+			gapi.auth2.init({"client_id" : gapi_clientId, "cookie_policy": "none"}).then(gSignIn);
 		});				
-	},
-
-	// Automatically signs user through google. 
-	// May need to change to prompt each time.
-	googleSignIn: function() {
-		var googleUser = gapi.auth2.getAuthInstance();
-		if (googleUser && !googleUser.isSignedIn.get()) googleUser.signIn();
 	},
 		
 	//Signs current user out
 	signOut: function() {
-		gapi.auth2.getAuthInstance().signOut();
+		var opts = {'prompt':'login'};
+		gapi.auth2.getAuthInstance().signOut(opts);
 	},
 	
 	// Pre-req: successfull googleAuth
@@ -36,6 +32,9 @@ var Login = React.createClass({
 		var request = gapi.client.plus.people.get({'userId':'me'});
 		request.then(function(resp) {
 			myImage = resp.result.image.url;				
+			//Test: $('#container').after('<img src='+myImage+'></src>');
+			
+			return <div><img src={resp.result.image.url} alt="profile-pic" className="img-circle"></img></div>
 		});
 	},
 	
