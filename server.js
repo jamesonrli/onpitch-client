@@ -24,7 +24,7 @@ server.use(function(req, res, next) {
   return next();
 });
 
-var port = process.env.PORT_SERVER || 6050;
+var port = process.env.PORT || 5050;
 server.listen(port, function(err) {
   if(err) {
     console.log(err);
