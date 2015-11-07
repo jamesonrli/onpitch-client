@@ -24,7 +24,7 @@ app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'));
 });
 
-if(process.env.environment == 'production') {
+if(process.env.NODE_ENV === 'production') {
   process.on('uncaughtException', function (err) {
     console.error(JSON.parse(JSON.stringify(err, ['stack', 'message', 'inner'], 2)));
   });

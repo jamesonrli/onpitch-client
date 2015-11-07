@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var browserify = require('browserify');
 var babelify = require('babelify');
 var source = require('vinyl-source-stream');
+var envify = require('envify');
 var getbrow;
 var bun;
 
@@ -13,6 +14,7 @@ module.exports.getBrow = getbrow = function() {
   // insertGlobals takes more space in output files but with faster build times
   return browserify('./app/main.js',
     {debug: process.env.NODE_ENV=='development', insertGlobals: process.env.NODE_ENV=='development'})
+    .transform(envify)
     .transform(babelify);
 };
 
