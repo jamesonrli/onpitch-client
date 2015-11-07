@@ -21,7 +21,7 @@
   "devDependencies": {},
   "scripts": {
     "initme": "npm install -g gulp && npm install --dev && npm install",
-    "start": "node server.js && gulp"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",

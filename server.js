@@ -2,6 +2,9 @@
 var express = require('express');
 var app = express();
 
+var gulp = require('gulp');
+require('./gulpfile');
+
 var Profile = require('./server/controllers/profile');
 
 app.set('port', (process.env.PORT || 5050));
@@ -23,6 +26,11 @@ app.use(function(req, res, next) {
 app.listen(app.get('port'), function() {
   console.log("Node app is running at port:" + app.get('port'));
 });
+
+if(gulp.tasks.build) {
+  console.log('starting gulp build...');
+  gulp.start('build');
+}
 
 if(process.env.NODE_ENV === 'production') {
   process.on('uncaughtException', function (err) {
