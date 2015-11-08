@@ -11,6 +11,14 @@ function setCurrentComments(comments) {
   _currentComments = comments;
 }
 
+function subscribeCommentChanges(userId) {
+  var source = new EventSource('/userComments/' + userId + '/update-stream');
+
+  source.addEventListener('comment-update-' + userId, function(event) {
+    console.log(event);
+  });
+}
+
 var CommentActions = require('../actions/comment_actions');
 var CommentStore = assign(new EventEmitter(), {
 
@@ -18,6 +26,7 @@ var CommentStore = assign(new EventEmitter(), {
     if(!_currentComments) {
       _currentComments = [];
       CommentActions.getComments('f9D8M07W6b');
+      subscribeCommentChanges('f9D8M07W6b');
     }
 
     return _currentComments;

@@ -1,5 +1,6 @@
 // Serving up the public directory
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 
 var gulp = require('gulp');
@@ -7,7 +8,9 @@ require('./gulpfile');
 
 var Profile = require('./server/controllers/profile');
 var Comment = require('./server/controllers/comment');
+var SSEComment = require('./server/sse/comment');
 
+app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5050));
 
 /************* Serve public folder ***********/
@@ -18,6 +21,11 @@ app.use(express.static(__dirname + '/public'));
 app.get('/userProfile/:id', Profile.getUserProfile);
 app.get('/userProjects/:id', Profile.getUserProjects);
 app.get('/userComments/:id', Comment.getUserComments);
+/***************** END ***********************/
+
+/***************** SSE ***********************/
+app.get('/userComments/:id/update-stream', SSEComment.commentUpdate);
+app.post('/userComments', SSEComment.triggerCommentUpdate);
 /***************** END ***********************/
 
 app.use(function(req, res, next) {
