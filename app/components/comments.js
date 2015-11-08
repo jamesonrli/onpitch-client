@@ -13,6 +13,7 @@ var CommentBox = React.createClass({
 
   componentDidMount: function() {
     CommentStore.addChangeListener(OnPitchConstants.COMMENTS_CHANGE, this._onChangeComments);
+    CommentStore.subscribeEvents();
   },
 
   componentWillUnmount: function() {

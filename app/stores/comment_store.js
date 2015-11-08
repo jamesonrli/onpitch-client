@@ -14,9 +14,10 @@ function setCurrentComments(comments) {
 function subscribeCommentChanges(userId) {
   var source = new EventSource('/userComments/' + userId + '/update-stream');
 
-  source.addEventListener('comment-update-' + userId, function(event) {
-    console.log(event);
-  });
+  source.addEventListener('message', function(e) {
+    console.log('comments update received, retrieving new comments');
+    CommentActions.getComments(e.data);
+  }, false);
 
   console.log('client subscribed to: ' + 'comment-update-' + userId);
 }
@@ -28,7 +29,6 @@ var CommentStore = assign(new EventEmitter(), {
     if(!_currentComments) {
       _currentComments = [];
       CommentActions.getComments('f9D8M07W6b');
-      subscribeCommentChanges('f9D8M07W6b');
     }
 
     return _currentComments;
@@ -36,6 +36,10 @@ var CommentStore = assign(new EventEmitter(), {
 
   emitChange: function(actionType) {
     this.emit(actionType);
+  },
+
+  subscribeEvents: function() {
+    subscribeCommentChanges('f9D8M07W6b');
   },
 
   addChangeListener: function(actionType, callback) {
