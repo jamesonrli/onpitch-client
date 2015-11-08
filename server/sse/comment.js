@@ -6,8 +6,11 @@ var ServerConstants = require('../common/constants');
 module.exports = {
   triggerCommentUpdate: function(req) {
     console.log(req.body);
+    var obj = req.body.object;
+
     publisher.getPublisher().publish(
-      ServerConstants.COMMENT_UPDATE_EVENT + '-' + req.body.object.userId.objectId); // test this
+      ServerConstants.COMMENT_UPDATE_EVENT + '-' + obj.userId.objectId,
+      obj.object); // test this
   },
 
   commentUpdate: function(req, res) {
