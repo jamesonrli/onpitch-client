@@ -10,7 +10,7 @@ module.exports = {
 
     publisher.getPublisher().publish(
       ServerConstants.COMMENT_UPDATE_EVENT + '-' + obj.userId.objectId,
-      obj.object); // test this
+      JSON.stringify(obj.object)); // test this
   },
 
   commentUpdate: function(req, res) {
