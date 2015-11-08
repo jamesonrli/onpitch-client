@@ -137,7 +137,7 @@ var ParseUtils = {
         'X-Parse-Application-Id': UtilConstants.PARSE_APP_ID,
         'X-Parse-REST-API-Key': UtilConstants.PARSE_REST_KEY
       },
-      path: '/1/classes/Comment?where=' + encodeURIComponent(restrict) + '&include=authorId'
+      path: '/1/classes/Comment?where=' + encodeURIComponent(restrict) + '&include=authorId&order=date'
     };
 
     HttpsUtils.makeRequest(getOptions,
