@@ -4,13 +4,16 @@ var publisher = require('./publisher');
 var ServerConstants = require('../common/constants');
 
 module.exports = {
-  triggerCommentUpdate: function(req) {
-    console.log(req.body);
+  triggerCommentUpdate: function(req, res) {
     var obj = req.body.object;
+    console.log(ServerConstants.COMMENT_UPDATE_EVENT + '-' + obj.userId.objectId);
 
     publisher.getPublisher().publish(
       ServerConstants.COMMENT_UPDATE_EVENT + '-' + obj.userId.objectId,
-      JSON.stringify(obj)); // test this
+      JSON.stringify(obj)
+    ); // test this
+
+    res.end();
   },
 
   commentUpdate: function(req, res) {
@@ -24,6 +27,7 @@ module.exports = {
     });
 
     subscriber.on('message', function(channel, message) {
+      console.log('Redis sending message: ' + message);
       res.write(JSON.stringify({
         channel: channel,
         message: message

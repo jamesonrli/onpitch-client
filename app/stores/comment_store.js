@@ -17,6 +17,8 @@ function subscribeCommentChanges(userId) {
   source.addEventListener('comment-update-' + userId, function(event) {
     console.log(event);
   });
+
+  console.log('client subscribed to: ' + 'comment-update-' + userId);
 }
 
 var CommentActions = require('../actions/comment_actions');
