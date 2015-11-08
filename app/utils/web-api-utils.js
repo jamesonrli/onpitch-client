@@ -44,5 +44,24 @@ module.exports = {
         console.log(error);
       }
     );
+  },
+
+  getUserComments: function(userId) {
+    var getOptions = {
+      host: UtilConstants.INTERNAL_HOST,
+      port: UtilConstants.INTERNAL_PORT,
+      method: UtilConstants.GET,
+      path: '/userComments/' + encodeURIComponent(userId)
+    };
+
+    HttpUtils.makeRequest(getOptions,
+      function(results) {
+        var CommentActions = require('../actions/comment_actions');
+        CommentActions.updateComments(results);
+      },
+      function(error) {
+        console.log(error);
+      }
+    );
   }
 };

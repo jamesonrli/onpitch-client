@@ -13,5 +13,9 @@ module.exports = {
 
   getUserProjects: function(userId, onResult, onError) {
     ParseUtils.getUserProjects(userId, onResult, onError);
+  },
+
+  getUserComments: function(userId, onResult, onError) {
+    ParseUtils.getUserComments(userId, onResult, onError);
   }
 };

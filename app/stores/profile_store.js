@@ -5,9 +5,11 @@ var assign = require('object-assign');
 
 var _currentProfile = null;
 var _currentProjects = null;
+var _userId = null;
 
 function setCurrentProfile(profile) {
   _currentProfile = profile;
+  _userId = profile.userId;
 }
 
 function setCurrentProjects(projects) {
@@ -17,6 +19,10 @@ function setCurrentProjects(projects) {
 var ProfileActions = require('../actions/profile_actions');
 var Profile = require('../data/profile');
 var ProfileStore = assign(new EventEmitter(), {
+
+  getUserId: function() {
+    return _userId;
+  },
 
   getCurrentProfile: function() {
     if(!_currentProfile) {

@@ -1,21 +1,29 @@
 var React = require('react');
+
+var OnPitchConstants = require('../common/constants');
 var CommentData = require('../data/comment').CommentData;
+var CommentStore = require('../stores/comment_store');
 
 var CommentBox = React.createClass({
   getInitialState: function() {
     return {
-      commentList: [
-        new CommentData("Peter", "11/1/12 11:12AM", "This is a comment"),
-        new CommentData("Peter", "11/2/12 12:50PM", "This is a comment")
-      ]
+      commentList: CommentStore.getCurrentComments()
     };
+  },
+
+  componentDidMount: function() {
+    CommentStore.addChangeListener(OnPitchConstants.COMMENTS_CHANGE, this._onChangeComments);
+  },
+
+  componentWillUnmount: function() {
+    CommentStore.removeChangeListener(OnPitchConstants.COMMENTS_CHANGE, this._onChangeComments);
   },
 
   commentSubmitHandler: function(comment) {
     // rerender is triggered after state is set, according to docs
     this.setState(function(prevState, currentProp) {
       var newList = prevState.commentList;
-      newList.push(new CommentData("Peter1", "11/3/15 1:50PM", comment));
+      newList.push(new CommentData("random", "Peter1", "11/3/15 1:50PM", comment));
       return {commentList: newList};
     });
   },
@@ -27,6 +35,12 @@ var CommentBox = React.createClass({
         <CommentForm commentSubmitHandler={this.commentSubmitHandler} />
       </div>
     );
+  },
+
+  _onChangeComments: function() {
+    this.setState({
+      commentList: CommentStore.getCurrentComments()
+    });
   }
 });
 
@@ -47,12 +61,19 @@ var CommentList = React.createClass({
 
 var Comment = React.createClass({
   render: function() {
+    var dateObj = this.props.createdDate;
+
     return (
       <div className='comment'>
         <div className='commentInner'>
           <div className='commentHeader row'>
             <p className='commentAuthor commentHeaderItem col-xs-2'>{this.props.author}</p>
-            <p className='commentCreated commentHeaderItem col-xs-3'>{this.props.createdDate}</p>
+            <p className='commentCreated commentHeaderItem col-xs-3'>
+              {
+                (dateObj.getMonth() + 1) + '/' + dateObj.getDate() + '/' + dateObj.getFullYear() + ' ' +
+                dateObj.getHours() + ':' + dateObj.getMinutes() // move this to utils
+              }
+            </p>
           </div>
           <p className='commentBody'>{this.props.body}</p>
         </div>

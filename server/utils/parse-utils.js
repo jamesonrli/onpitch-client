@@ -119,6 +119,36 @@ var ParseUtils = {
         onError(error);
       }
     );
+  },
+
+  getUserComments: function(userId, onResult, onError) {
+    var restrict = JSON.stringify({
+      userId: {
+        __type: 'Pointer',
+        className: '_User',
+        objectId: userId
+      }
+    });
+
+    var getOptions = {
+      host: UtilConstants.PARSE_HOST,
+      method: UtilConstants.GET,
+      headers: {
+        'X-Parse-Application-Id': UtilConstants.PARSE_APP_ID,
+        'X-Parse-REST-API-Key': UtilConstants.PARSE_REST_KEY
+      },
+      path: '/1/classes/Comment?where=' + encodeURIComponent(restrict) + '&include=authorId'
+    };
+
+    HttpsUtils.makeRequest(getOptions,
+      function(result) {
+        onResult(result.results);
+      },
+      function(error) {
+        console.error(error);
+        onError(error);
+      }
+    );
   }
 };
 

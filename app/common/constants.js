@@ -6,5 +6,6 @@ module.exports = {
   PAGE_SIGN_UP: 'page-sign-up',
 
   PROFILE_CHANGE: 'profile-change',
-  PROJECTS_CHANGE: 'projects-change'
+  PROJECTS_CHANGE: 'projects-change',
+  COMMENTS_CHANGE: 'comments-change'
 };

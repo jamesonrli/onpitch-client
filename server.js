@@ -6,6 +6,7 @@ var gulp = require('gulp');
 require('./gulpfile');
 
 var Profile = require('./server/controllers/profile');
+var Comment = require('./server/controllers/comment');
 
 app.set('port', (process.env.PORT || 5050));
 
@@ -16,6 +17,7 @@ app.use(express.static(__dirname + '/public'));
 /************* OnPitch API *******************/
 app.get('/userProfile/:id', Profile.getUserProfile);
 app.get('/userProjects/:id', Profile.getUserProjects);
+app.get('/userComments/:id', Comment.getUserComments);
 /***************** END ***********************/
 
 app.use(function(req, res, next) {
