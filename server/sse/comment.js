@@ -6,12 +6,12 @@ var ServerConstants = require('../common/constants');
 module.exports = {
   triggerCommentUpdate: function(req, res) {
     var obj = req.body.object;
-    console.log(ServerConstants.COMMENT_UPDATE_EVENT + '-' + obj.userId.objectId);
+    console.log('comment update triggered: ' + ServerConstants.COMMENT_UPDATE_EVENT + '-' + obj.userId.objectId);
 
     publisher.getPublisher().publish(
       ServerConstants.COMMENT_UPDATE_EVENT + '-' + obj.userId.objectId,
       JSON.stringify(obj)
-    ); // test this
+    );
 
     res.end();
   },
@@ -41,7 +41,7 @@ module.exports = {
 
     // on browser window close
     req.on('close', function() {
-      console.log('closing subscription');
+      console.log('Redis closing subscription');
       subscriber.unsubscribe();
       subscriber.quit();
     });
