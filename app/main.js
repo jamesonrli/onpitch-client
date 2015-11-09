@@ -18,11 +18,11 @@ var App = React.createClass({
   },
 
   componentDidMount: function() {
-    MainStore.addChangeListener(this._onChange);
+    MainStore.addChangeListener(OnPitchConstants.PAGE_CHANGE, this._onChange);
   },
 
   componentWillUnmount: function() {
-    MainStore.removeChangeListener(this._onChange);
+    MainStore.removeChangeListener(OnPitchConstants.PAGE_CHANGE, this._onChange);
   },
 
   render: function() {

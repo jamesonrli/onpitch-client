@@ -1,8 +1,6 @@
-var gapi_clientId = "423598233004-n12724b6r8rg16sjtm8cb0c7vttkckiq.apps.googleusercontent.com";
-var SCOPE = ["https://www.googleapis.com/auth/plus.login"];
-
 var React = require('react');
 var MainActions = require('../actions/main_actions');
+var MainStore = require('../stores/main_store');
 var OnPitchConstants = require('../common/constants');
 
 // Automatically signs user through google. 
@@ -13,42 +11,46 @@ var gSignIn = function() {
 }
 
 var Login = React.createClass({	
-	// Loads needed APIs
-	googleAuth: function () {
-		gapi.load("auth2", function() {
-			gapi.auth2.init({"client_id" : gapi_clientId, "cookie_policy": "none"}).then(gSignIn);
-		});				
-	},
+	getInitialState: function() {
+		var currUser = MainStore.getCurrentUser() ;
 		
-	//Signs current user out
-	signOut: function() {
-		var opts = {'prompt':'login'};
-		gapi.auth2.getAuthInstance().signOut(opts);
-	},
-	
-	// Pre-req: successfull googleAuth
-	googleProfilePic: function() {
-		var myImage;		
-		var request = gapi.client.plus.people.get({'userId':'me'});
-		request.then(function(resp) {
-			myImage = resp.result.image.url;				
-			//Test: $('#container').after('<img src='+myImage+'></src>');
-			
-			return <div><img src={resp.result.image.url} alt="profile-pic" className="img-circle"></img></div>
+		return ({
+			user: currUser ? currUser : {"image": "../../public/img/night.jpg"}
 		});
 	},
+
+	componentDidMount: function() {
+		MainStore.addChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
+	},
+
+	componentWillUnmount: function() {
+		MainStore.removeChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
+	},	
 	
 	signUpHandler: function() {
 		MainActions.changePage(OnPitchConstants.PAGE_SIGN_UP);
 	},
 
+	signInHandler: function() {
+		MainActions.signIn(OnPitchConstants.SIGN_IN);
+	},
+	
 	render: function() {
 		return (
-			<div className='btn-group'>
-				<button className='btn btn-sm btn-primary' onClick={this.signUpHandler}> Sign Up </button>
-				<button className='btn btn-sm btn-default' onClick={this.googleAuth}> Login </button>
+			<div>
+				<div>
+					<img src={this.state.user.image} className="img-circle" width="250" height="250"></img>
+				</div>
+				<div className='btn-group'>
+					<button className='btn btn-sm btn-primary' onClick={this.signUpHandler}> Sign Up </button>
+					<button className='btn btn-sm btn-default' onClick={this.signInHandler}> Login </button>
+				</div>
 			</div>
 		);
+	},
+	
+	_onChange: function () {
+		this.setState({user: MainStore.getCurrentUser()});
 	}
 });
 
