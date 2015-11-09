@@ -3,27 +3,16 @@ var AppDispatcher = require('../dispatcher/app_dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
-var CHANGE_EVENT = OnPitchConstants.PAGE_CHANGE;
-
 var _currentPage = OnPitchConstants.PAGE_LANDING; // init page is landing
-var _currentUser = null;
 
 function setCurrentPage(page) {
   _currentPage = page;
-}
-
-function setCurrentUser(user) {
-	_currentUser = user;
 }
 
 var MainStore = assign(new EventEmitter(), {
 
   getCurrentPage: function() {
     return _currentPage;
-  },
-
-  getCurrentUser: function() {
-	 return _currentUser; 
   },
   
   emitChange: function(actionType) {
@@ -43,16 +32,11 @@ var MainStore = assign(new EventEmitter(), {
     var data = action.data;
 
     switch(action.actionType) {
-      case OnPitchConstants.PAGE_CHANGE: {
-        setCurrentPage(data);
-        MainStore.emitChange(OnPitchConstants.PAGE_CHANGE);
-        break;
-      }
-	  
-	  case OnPitchConstants.SIGN_IN: {
-		  setCurrentUser(data);
-		  MainStore.emitChange(OnPitchConstants.SIGN_IN);
-	  }
+		case OnPitchConstants.PAGE_CHANGE: {
+			setCurrentPage(data);
+			MainStore.emitChange(OnPitchConstants.PAGE_CHANGE);
+			break;
+		}
     }
 
     return true; // No errors. Needed by promise in Dispatcher.

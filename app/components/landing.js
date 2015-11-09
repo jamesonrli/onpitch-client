@@ -48,7 +48,6 @@ var Scroll = React.createClass({
   },
 
   render: function() {
-    var text = this.state.tab;
     return (
 
       <div className="n tabs-left">
@@ -60,7 +59,7 @@ var Scroll = React.createClass({
               <li onClick={this.setT3}><a href='#t3'>More Info</a></li>
             </ul>
           </div>
-          <div className="col-sm-8">{text}</div>
+          <div className="col-sm-8">{this.state.tab}</div>
         </div>
       </div>
     );

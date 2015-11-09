@@ -1,30 +1,25 @@
 var React = require('react');
 var MainActions = require('../actions/main_actions');
 var MainStore = require('../stores/main_store');
+var TempActions = require('../actions/temp_actions');
+var TempStore = require('../stores/temp_store');
 var OnPitchConstants = require('../common/constants');
-
-// Automatically signs user through google. 
-	// May need to change to prompt each time.
-var gSignIn = function() {
-	var googleUser = gapi.auth2.getAuthInstance();
-	if (googleUser && !googleUser.isSignedIn.get()) googleUser.signIn();
-}
 
 var Login = React.createClass({	
 	getInitialState: function() {
-		var currUser = MainStore.getCurrentUser() ;
-		
+		var currUser = TempStore.getCurrentUser();
+
 		return ({
 			user: currUser ? currUser : {"image": "../../public/img/night.jpg"}
 		});
 	},
 
 	componentDidMount: function() {
-		MainStore.addChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
+		TempStore.addChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
 	},
 
 	componentWillUnmount: function() {
-		MainStore.removeChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
+		TempStore.removeChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
 	},	
 	
 	signUpHandler: function() {
@@ -32,7 +27,7 @@ var Login = React.createClass({
 	},
 
 	signInHandler: function() {
-		MainActions.signIn(OnPitchConstants.SIGN_IN);
+		TempActions.signIn(OnPitchConstants.SIGN_IN);
 	},
 	
 	render: function() {
@@ -50,7 +45,8 @@ var Login = React.createClass({
 	},
 	
 	_onChange: function () {
-		this.setState({user: MainStore.getCurrentUser()});
+		this.setState({user: TempStore.getCurrentUser()});
+		console.log(this.state.user.username);
 	}
 });
 
