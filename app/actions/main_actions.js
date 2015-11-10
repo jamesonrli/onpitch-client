@@ -1,6 +1,6 @@
 var AppDispatcher = require('../dispatcher/app_dispatcher');
 var OnPitchConstants = require('../common/constants');
-var UtilConstants = require("../utils/util-constants");
+var UtilConstants = require("../../server/utils/util-constants");
 
 var MainActions = {
 
