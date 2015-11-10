@@ -1,6 +1,6 @@
 var AppDispatcher = require('../dispatcher/app_dispatcher');
 var OnPitchConstants = require('../common/constants');
-var UtilConstants = require("../../utils/util-constants");
+var UtilConstants = require("../utils/util-constants");
 
 //https://developers.google.com/identity/sign-in/web/reference
 //https://developers.google.com/api-client-library/javascript/
