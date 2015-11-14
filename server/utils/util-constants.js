@@ -5,5 +5,6 @@ module.exports = {
   PARSE_HOST: 'api.parse.com',
 
   GET: 'GET',
-  PUT: 'PUT'
+  PUT: 'PUT',
+  POST: 'POST'
 };

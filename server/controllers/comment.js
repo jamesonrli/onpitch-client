@@ -13,5 +13,18 @@ module.exports = {
         res.send(JSON.stringify(error));
       }
     );
+  },
+
+  newComment: function(req, res) {
+    WebApiUtils.newComment(req.body,
+      function(results) {
+        res.set('Access-Control-Allow-Origin', '*');
+        res.send(results);
+      },
+      function(error) {
+        res.send(400);
+        res.send(JSON.stringify(error));
+      }
+    );
   }
 };

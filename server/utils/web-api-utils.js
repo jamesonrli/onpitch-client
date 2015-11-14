@@ -17,5 +17,9 @@ module.exports = {
 
   getUserComments: function(userId, onResult, onError) {
     ParseUtils.getUserComments(userId, onResult, onError);
+  },
+
+  newComment: function(params, onResult, onError) {
+    ParseUtils.newComment(params, onResult, onError);
   }
 };

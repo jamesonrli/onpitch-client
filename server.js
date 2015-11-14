@@ -8,7 +8,7 @@ require('./gulpfile');
 
 var Profile = require('./server/controllers/profile');
 var Comment = require('./server/controllers/comment');
-var SSEComment = require('./server/sse/comment');
+var Socket = require('./server/events/socket');
 
 app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5050));
@@ -21,11 +21,7 @@ app.use(express.static(__dirname + '/public'));
 app.get('/userProfile/:id', Profile.getUserProfile);
 app.get('/userProjects/:id', Profile.getUserProjects);
 app.get('/userComments/:id', Comment.getUserComments);
-/***************** END ***********************/
-
-/***************** SSE ***********************/
-app.get('/userComments/:id/update-stream', SSEComment.commentUpdate);
-app.post('/userComments', SSEComment.triggerCommentUpdate);
+app.post('/userComments', Comment.newComment);
 /***************** END ***********************/
 
 app.use(function(req, res, next) {
@@ -33,9 +29,15 @@ app.use(function(req, res, next) {
   return next();
 });
 
-app.listen(app.get('port'), function() {
+var server = app.listen(app.get('port'), function() {
   console.log("Node app is running at port:" + app.get('port'));
 });
+
+var io = require('socket.io')(server);
+
+/***************** Socket ***********************/
+io.on('connection', Socket);
+/***************** END ***********************/
 
 if(gulp.tasks.build) {
   console.log('starting gulp build...');

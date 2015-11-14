@@ -137,7 +137,7 @@ var ParseUtils = {
         'X-Parse-Application-Id': UtilConstants.PARSE_APP_ID,
         'X-Parse-REST-API-Key': UtilConstants.PARSE_REST_KEY
       },
-      path: '/1/classes/Comment?where=' + encodeURIComponent(restrict) + '&include=authorId&order=date'
+      path: '/1/classes/Comment?where=' + encodeURIComponent(restrict) + '&include=authorId&order=-date'
     };
 
     HttpsUtils.makeRequest(getOptions,
@@ -148,6 +148,45 @@ var ParseUtils = {
         console.error(error);
         onError(error);
       }
+    );
+  },
+
+  newComment: function(params, onResult, onError) {
+    var postOptions = {
+      host: UtilConstants.PARSE_HOST,
+      method: UtilConstants.POST,
+      'content-type': 'application/json',
+      headers: {
+        'X-Parse-Application-Id': UtilConstants.PARSE_APP_ID,
+        'X-Parse-REST-API-Key': UtilConstants.PARSE_REST_KEY,
+      },
+      path: '/1/classes/Comment'
+    };
+
+    var content = {
+      authorId: {
+        __type: 'Pointer',
+        className: '_User',
+        objectId: params.authorId
+      },
+      userId: {
+        __type: 'Pointer',
+        className: '_User',
+        objectId: params.profileUserId
+      },
+      body: params.comment
+    };
+
+    HttpsUtils.makeRequest(postOptions,
+      function(result) {
+        console.log(result);
+        onResult(result);
+      },
+      function(error) {
+        console.log(error);
+        onError(error);
+      },
+      JSON.stringify(content)
     );
   }
 };

@@ -63,5 +63,33 @@ module.exports = {
         console.log(error);
       }
     );
+  },
+
+  newComment: function(authorId, profileUserId, comment) {
+    var postOptions = {
+      host: UtilConstants.INTERNAL_HOST,
+      port: UtilConstants.INTERNAL_PORT,
+      method: UtilConstants.POST,
+      path: '/userComments',
+      headers: {
+        'content-type': 'application/json'
+      }
+    };
+
+    var content = {
+      authorId: authorId,
+      profileUserId: profileUserId,
+      comment: comment
+    };
+
+    HttpUtils.makeRequest(postOptions,
+      function(results) {
+        console.log('comment posted: ' + results);
+      },
+      function(error) {
+        console.log(error);
+      },
+      JSON.stringify(content)
+    );
   }
 };

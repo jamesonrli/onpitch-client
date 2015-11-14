@@ -15,8 +15,8 @@
     "object-assign": "^4.0.1",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "redis": "^2.3.0",
     "restify": "^4.0.3",
+    "socket.io": "^1.3.7",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.4.0"
   },
@@ -30,7 +30,7 @@
     "url": "git+https://jamesonrli@github.com/jamesonrli/onpitch-client.git"
   },
   "author": "",
-  "license": "",
+  "license": "WTFPL",
   "bugs": {
     "url": "https://github.com/jamesonrli/onpitch-client/issues"
   },

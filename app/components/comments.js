@@ -3,6 +3,9 @@ var React = require('react');
 var OnPitchConstants = require('../common/constants');
 var CommentData = require('../data/comment').CommentData;
 var CommentStore = require('../stores/comment_store');
+var CommentActions = require('../actions/comment_actions');
+
+var ProfileStore = require('../stores/profile_store');
 
 var CommentBox = React.createClass({
   getInitialState: function() {
@@ -21,12 +24,7 @@ var CommentBox = React.createClass({
   },
 
   commentSubmitHandler: function(comment) {
-    // rerender is triggered after state is set, according to docs
-    this.setState(function(prevState, currentProp) {
-      var newList = prevState.commentList;
-      newList.push(new CommentData("random", "Peter1", "11/3/15 1:50PM", comment));
-      return {commentList: newList};
-    });
+    CommentActions.newComment(ProfileStore.getUserId(), ProfileStore.getUserId(), comment); // todo: get author id when login store is available
   },
 
   render: function() {
