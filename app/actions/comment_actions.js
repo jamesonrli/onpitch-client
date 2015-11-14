@@ -10,13 +10,17 @@ var CommentActions = {
     WebApiUtils.getUserComments(userId);
   },
 
+  newComment: function(authorUserId, profileUserId, comment) {
+    WebApiUtils.newComment(authorUserId, profileUserId, comment);
+  },
+
   updateComments: function(commentsData) {
     AppDispatcher.handleDataAction({
       actionType: OnPitchConstants.COMMENTS_CHANGE,
       commentsData: (() => {
         var processedList = [];
         commentsData.forEach(function(comm) {
-          processedList.push(new CommentData(comm.authorId.objectId, comm.authorId.username, new Date(comm.date.iso), comm.body));
+          processedList.push(new CommentData(comm.authorId.objectId, comm.authorId.username, new Date(comm.createdAt), comm.body));
         });
 
         return processedList;

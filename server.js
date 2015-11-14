@@ -1,5 +1,6 @@
 // Serving up the public directory
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 
 var gulp = require('gulp');
@@ -8,6 +9,7 @@ require('./gulpfile');
 var Profile = require('./server/controllers/profile');
 var Comment = require('./server/controllers/comment');
 
+app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5050));
 
 /************* Serve public folder ***********/
@@ -18,6 +20,7 @@ app.use(express.static(__dirname + '/public'));
 app.get('/userProfile/:id', Profile.getUserProfile);
 app.get('/userProjects/:id', Profile.getUserProjects);
 app.get('/userComments/:id', Comment.getUserComments);
+app.post('/userComments', Comment.newComment);
 /***************** END ***********************/
 
 app.use(function(req, res, next) {
@@ -25,9 +28,21 @@ app.use(function(req, res, next) {
   return next();
 });
 
-app.listen(app.get('port'), function() {
+var server = app.listen(app.get('port'), function() {
   console.log("Node app is running at port:" + app.get('port'));
 });
+
+var io = require('socket.io')(server);
+
+/***************** Socket ***********************/
+var Socket = require('./server/events/socket_sub');
+io.on('connection', Socket);
+var SocketPub = require('./server/events/socket_pub')(io);
+/***************** END ***********************/
+
+/************** Webhooks *********************/
+app.post('/wh/userComments', SocketPub.triggerCommentUpdate);
+/***************** END ***********************/
 
 if(gulp.tasks.build) {
   console.log('starting gulp build...');

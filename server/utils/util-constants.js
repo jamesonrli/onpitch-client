@@ -8,5 +8,6 @@ module.exports = {
   GOOGLE_CLIENT_ID: "423598233004-n12724b6r8rg16sjtm8cb0c7vttkckiq.apps.googleusercontent.com",
   
   GET: 'GET',
-  PUT: 'PUT'
+  PUT: 'PUT',
+  POST: 'POST'
 };

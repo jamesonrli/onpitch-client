@@ -11,6 +11,16 @@ function setCurrentComments(comments) {
   _currentComments = comments;
 }
 
+function subscribeCommentChanges(userId) {
+  var socket = io();
+
+  socket.emit('join', {event: 'comment-update-' + userId});
+  socket.on('comment-update', function(e) {
+    console.log('comments update received, retrieving new comments for: ' + e.userId);
+    CommentActions.getComments(e.userId);
+  }, false);
+}
+
 var CommentActions = require('../actions/comment_actions');
 var CommentStore = assign(new EventEmitter(), {
 
@@ -25,6 +35,10 @@ var CommentStore = assign(new EventEmitter(), {
 
   emitChange: function(actionType) {
     this.emit(actionType);
+  },
+
+  subscribeEvents: function() {
+    subscribeCommentChanges('f9D8M07W6b');
   },
 
   addChangeListener: function(actionType, callback) {
