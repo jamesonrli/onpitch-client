@@ -12,14 +12,13 @@ function setCurrentComments(comments) {
 }
 
 function subscribeCommentChanges(userId) {
-  var source = new EventSource('/userComments/' + userId + '/update-stream');
+  var socket = io();
 
-  source.addEventListener('message', function(e) {
+  socket.emit('join', {event: 'comment-update-' + userId});
+  socket.on('comment-update', function(e) {
     console.log('comments update received, retrieving new comments');
-    CommentActions.getComments(e.data);
+    CommentActions.getComments(e.userId);
   }, false);
-
-  console.log('client subscribed to: ' + 'comment-update-' + userId);
 }
 
 var CommentActions = require('../actions/comment_actions');

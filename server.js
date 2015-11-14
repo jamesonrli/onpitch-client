@@ -8,7 +8,6 @@ require('./gulpfile');
 
 var Profile = require('./server/controllers/profile');
 var Comment = require('./server/controllers/comment');
-var Socket = require('./server/events/socket');
 
 app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5050));
@@ -36,7 +35,13 @@ var server = app.listen(app.get('port'), function() {
 var io = require('socket.io')(server);
 
 /***************** Socket ***********************/
+var Socket = require('./server/events/socket_sub');
 io.on('connection', Socket);
+var SocketPub = require('./server/events/socket_pub')(io);
+/***************** END ***********************/
+
+/************** Webhooks *********************/
+app.post('/wh/userComments', SocketPub.triggerCommentUpdate);
 /***************** END ***********************/
 
 if(gulp.tasks.build) {
