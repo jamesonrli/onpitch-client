@@ -16,7 +16,7 @@ function subscribeCommentChanges(userId) {
 
   socket.emit('join', {event: 'comment-update-' + userId});
   socket.on('comment-update', function(e) {
-    console.log('comments update received, retrieving new comments');
+    console.log('comments update received, retrieving new comments for: ' + e.userId);
     CommentActions.getComments(e.userId);
   }, false);
 }

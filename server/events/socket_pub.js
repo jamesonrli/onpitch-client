@@ -9,8 +9,8 @@ module.exports = function(io) {
       console.log('comment update triggered: ' + ServerConstants.COMMENT_UPDATE_EVENT + '-' + obj.userId.objectId);
 
       io.sockets.in(ServerConstants.COMMENT_UPDATE_EVENT + '-' + obj.userId.objectId).
-        emit(ServerConstants.COMMENT_UPDATE_EVENT, obj);
-  
+        emit(ServerConstants.COMMENT_UPDATE_EVENT, {userId: obj.userId.objectId});
+
       res.end();
     },
   };
