@@ -11,6 +11,10 @@ module.exports = {
     ParseUtils.getUserProfile(userId, onResult, onError);
   },
 
+  newUserProfile: function(userId, onResult, onError) {
+    ParseUtils.newUserProfile(userId, onResult, onError);
+  },
+
   getUserProjects: function(userId, onResult, onError) {
     ParseUtils.getUserProjects(userId, onResult, onError);
   },

@@ -6,11 +6,12 @@ var app = express();
 var gulp = require('gulp');
 require('./gulpfile');
 
-var Profile = require('./server/controllers/profile');
-var Comment = require('./server/controllers/comment');
-
 app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 5050));
+
+var Profile = require('./server/controllers/profile');
+var Comment = require('./server/controllers/comment');
+var User = require('./server/controllers/user');
 
 /************* Serve public folder ***********/
 app.use(express.static(__dirname + '/public'));
@@ -42,6 +43,7 @@ var SocketPub = require('./server/events/socket_pub')(io);
 
 /************** Webhooks *********************/
 app.post('/wh/userComments', SocketPub.triggerCommentUpdate);
+app.post('/wh/userCreated', User.newUserProfile);
 /***************** END ***********************/
 
 if(gulp.tasks.build) {

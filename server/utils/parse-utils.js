@@ -54,6 +54,39 @@ var ParseUtils = {
     );
   },
 
+  newUserProfile: function(userId, onResult, onError) {
+    var postOptions = {
+      host: UtilConstants.PARSE_HOST,
+      method: UtilConstants.POST,
+      'content-type': 'application/json',
+      headers: {
+        'X-Parse-Application-Id': UtilConstants.PARSE_APP_ID,
+        'X-Parse-REST-API-Key': UtilConstants.PARSE_REST_KEY,
+      },
+      path: '/1/classes/Profile'
+    };
+
+    var content = {
+      userId: {
+        __type: 'Pointer',
+        className: '_User',
+        objectId: userId
+      },
+    };
+
+    HttpsUtils.makeRequest(postOptions,
+      function(result) {
+        console.log(result);
+        onResult(result);
+      },
+      function(error) {
+        console.log(error);
+        onError(error);
+      },
+      JSON.stringify(content)
+    );
+  },
+
   getUserProfile: function(userId, onResult, orError) {
     var restrict = JSON.stringify({
       userId: {

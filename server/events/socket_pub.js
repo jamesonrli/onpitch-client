@@ -12,6 +12,6 @@ module.exports = function(io) {
         emit(ServerConstants.COMMENT_UPDATE_EVENT, {userId: obj.userId.objectId});
 
       res.end();
-    },
+    }
   };
 };
