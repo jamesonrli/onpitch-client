@@ -62,7 +62,7 @@ function updateEditables(binder) {
     type: 'text',
     title: 'Enter your name',
     placement: 'right',
-    value: (binder.props.profile.firstName + ' ' + binder.props.profile.lastName),
+    value: ((binder.props.profile.firstName || '') + ' ' + (binder.props.profile.lastName || '')).trim(),
     success: function(response, newValue) {
       console.log(binder.props.profile);
       binder.setState({
@@ -83,7 +83,7 @@ function updateEditables(binder) {
     type: 'textarea',
     title: 'Enter your message',
     placement: 'right',
-    value: binder.props.profile.headline,
+    value: binder.props.profile.headline || '',
     success: function(response, newValue) {
       binder.setState({
         profile: {
