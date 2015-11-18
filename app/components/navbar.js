@@ -1,28 +1,28 @@
 var React = require('react');
 var MainActions = require('../actions/main_actions');
 var OnPitchConstants = require('../common/constants');
-var TempStore = require('../stores/temp_store');
-var TempActions = require('../actions/temp_actions');
+var UserStore = require('../stores/user_store');
+var UserActions = require('../actions/user_actions');
 
 var NavBar = React.createClass({
 	getInitialState: function() {
-		var currUser = TempStore.getCurrentUser();
+		var currUser = UserStore.getCurrentUser();
 		
 		return ({
-			signedIn: TempStore.getCurrentUser() ? "show" : "hide"
+			signedIn: UserStore.getCurrentUser() ? "show" : "hide"
 		});
 	},
 
 	componentDidMount: function() {
-		TempStore.addChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
+		UserStore.addChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
 	},
 
 	componentWillUnmount: function() {
-		TempStore.removeChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
+		UserStore.removeChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
 	},	
 	
 	_onChange: function () {
-		this.setState({signedIn: TempStore.getCurrentUser() ? "show" : "hide"});
+		this.setState({signedIn: UserStore.getCurrentUser() ? "show" : "hide"});
 	},
 	
   myProfileHandler: function() {
@@ -34,7 +34,7 @@ var NavBar = React.createClass({
   },
 
   signOutHandler: function() {
-	 TempActions.signOut(OnPitchConstants.SIGN_IN); 
+	 UserActions.signOut(OnPitchConstants.SIGN_IN); 
   },
   
   render: function() {

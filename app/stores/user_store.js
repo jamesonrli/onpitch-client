@@ -9,7 +9,7 @@ function setCurrentUser(data) {
 	_currentUser = data;
 }
 
-var TempStore = assign(new EventEmitter(), {
+var UserStore = assign(new EventEmitter(), {
  
 	getCurrentUser: function() {
 		return _currentUser; 
@@ -34,7 +34,7 @@ var TempStore = assign(new EventEmitter(), {
 		switch(action.actionType) {
 			case OnPitchConstants.SIGN_IN: {
 				setCurrentUser(data);
-				TempStore.emitChange(OnPitchConstants.SIGN_IN);
+				UserStore.emitChange(OnPitchConstants.SIGN_IN);
 			}
 		}
 		
@@ -42,4 +42,4 @@ var TempStore = assign(new EventEmitter(), {
 	})
 });
 
-module.exports = TempStore;
+module.exports = UserStore;

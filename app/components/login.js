@@ -1,25 +1,25 @@
 var React = require('react');
 var MainActions = require('../actions/main_actions');
 var MainStore = require('../stores/main_store');
-var TempActions = require('../actions/temp_actions');
-var TempStore = require('../stores/temp_store');
+var UserActions = require('../actions/user_actions');
+var UserStore = require('../stores/user_store');
 var OnPitchConstants = require('../common/constants');
 
 var Login = React.createClass({	
 	getInitialState: function() {
-		var currUser = TempStore.getCurrentUser();
+		var currUser = UserStore.getCurrentUser();
 
 		return ({
-			user: currUser ? currUser : {"image": "../../public/img/night.jpg"}
+			user: currUser ? currUser : {"image": "http://files.parsetfss.com/97567fb5-086d-4a0c-8c60-a70917bff8c6/tfss-cd8b6a00-0049-44e1-8f46-cf0695988277-sunset.jpg"}
 		});
 	},
 
 	componentDidMount: function() {
-		TempStore.addChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
+		UserStore.addChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
 	},
 
 	componentWillUnmount: function() {
-		TempStore.removeChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
+		UserStore.removeChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
 	},	
 	
 	signUpHandler: function() {
@@ -27,7 +27,7 @@ var Login = React.createClass({
 	},
 
 	signInHandler: function() {
-		TempActions.signIn(OnPitchConstants.SIGN_IN);
+		UserActions.signIn(OnPitchConstants.SIGN_IN);
 	},
 	
 	render: function() {
@@ -45,7 +45,8 @@ var Login = React.createClass({
 	},
 	
 	_onChange: function () {
-		this.setState({user: TempStore.getCurrentUser()});
+		var currUser = UserStore.getCurrentUser()
+		this.setState({user: currUser ? currUser : {"image": "http://files.parsetfss.com/97567fb5-086d-4a0c-8c60-a70917bff8c6/tfss-cd8b6a00-0049-44e1-8f46-cf0695988277-sunset.jpg"}});
 		console.log(this.state.user.username);
 	}
 });

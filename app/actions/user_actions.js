@@ -87,7 +87,7 @@ var gSignIn = function() {
 	}
 }
 
-var TempActions = {
+var UserActions = {
 	signOut: function() {
 		if (!gapi.auth2) {
 			gapi.load("auth2", function() {
@@ -123,4 +123,4 @@ var TempActions = {
 	}
 }
 
-module.exports = TempActions;
+module.exports = UserActions;
