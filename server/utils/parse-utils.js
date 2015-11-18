@@ -4,7 +4,7 @@ var HttpsUtils = require('./https-utils');
 // endpoints reference: https://www.parse.com/docs/rest/guide/
 
 var ParseUtils = {
-  updateProfile: function(profileId, profileChanges, onResult) {
+  updateUserProfile: function(profileId, profileChanges, onResult, onError) {
     var putOptions = {
       host: UtilConstants.PARSE_HOST,
       method: UtilConstants.PUT,
@@ -13,23 +13,25 @@ var ParseUtils = {
         'X-Parse-Application-Id': UtilConstants.PARSE_APP_ID,
         'X-Parse-REST-API-Key': UtilConstants.PARSE_REST_KEY
       },
-      path: '/1/classes/Profile/' + profileId
+      path: '/1/classes/Profile/' + encodeURIComponent(profileId)
     };
 
     HttpsUtils.makeRequest(putOptions,
       function(result) {
         // on complete
         console.log('request complete' + JSON.stringify(result));
+        onResult(result);
       },
       function(err) {
         // on err
         console.log('request failed: ' + err);
+        onError(err);
       },
       JSON.stringify(profileChanges)
     );
   },
 
-  updateUser: function(userId, profileChanges, onResult) {
+  updateUser: function(userId, userChanges, onResult, onError) {
     var putOptions = {
       host: UtilConstants.PARSE_HOST,
       method: UtilConstants.PUT,
@@ -38,19 +40,21 @@ var ParseUtils = {
         'X-Parse-Application-Id': UtilConstants.PARSE_APP_ID,
         'X-Parse-REST-API-Key': UtilConstants.PARSE_REST_KEY
       },
-      path: '/1/classes/_User/' + userId
+      path: '/1/classes/_User/' + encodeURIComponent(userId)
     };
 
     HttpsUtils.makeRequest(putOptions,
       function(result) {
         // on complete
         console.log('request complete' + JSON.stringify(result));
+        onResult(result);
       },
       function(err) {
         // on err
         console.log('request failed: ' + err);
+        onError(err);
       },
-      JSON.stringify(profileChanges)
+      JSON.stringify(userChanges)
     );
   },
 

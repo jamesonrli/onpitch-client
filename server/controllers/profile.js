@@ -27,5 +27,18 @@ module.exports = {
         res.send(JSON.stringify(error));
       }
     );
-  }
+  },
+
+  updateUserProfile: function(req, res) {
+    var profileId = req.params.id;
+    var obj = req.body;
+    WebApiUtils.updateUserProfile(profileId, obj,
+      function(results) {
+      },
+      function(error) {
+        console.log(error);
+      }
+    );
+  },
+
 };

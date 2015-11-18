@@ -38,7 +38,7 @@ var ProfileActions = {
   },
 
   profileChanges: function(profileId, profileChanges) {
-    WebApiUtils.updateProfile(profileId, profileChanges);
+    WebApiUtils.updateUserProfile(profileId, profileChanges);
   },
 
   userChanges: function(userId, userChanges) {

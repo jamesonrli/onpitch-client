@@ -2,10 +2,46 @@ var HttpUtils = require('./http-utils');
 var UtilConstants = require('./util-constants');
 
 module.exports = {
-  updateProfile: function(profileId, profileChanges) {
+  updateUserProfile: function(profileId, profileChanges) {
+    var putOptions = {
+      host: UtilConstants.INTERNAL_HOST,
+      port: UtilConstants.INTERNAL_PORT,
+      method: UtilConstants.PUT,
+      headers: {
+        'content-type': 'application/json'
+      },
+      path:'/userProfile/' + encodeURIComponent(profileId)
+    };
+
+    HttpUtils.makeRequest(putOptions,
+      function(result) {
+      },
+      function(error) {
+        console.log(error);
+      },
+      JSON.stringify(profileChanges)
+    );
   },
 
   updateUser: function(userId, userChanges) {
+    var putOptions = {
+      host: UtilConstants.INTERNAL_HOST,
+      port: UtilConstants.INTERNAL_PORT,
+      method: UtilConstants.PUT,
+      headers: {
+        'content-type': 'application/json'
+      },
+      path:'/user/' + encodeURIComponent(userId)
+    };
+
+    HttpUtils.makeRequest(putOptions,
+      function(result) {
+      },
+      function(error) {
+        console.log(error);
+      },
+      JSON.stringify(userChanges)
+    );
   },
 
   getUserProfile: function(userId) {

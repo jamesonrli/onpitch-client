@@ -11,5 +11,19 @@ module.exports = {
         console.log(err);
       }
     );
+  },
+
+  updateUser: function(req, res) {
+    var userId = req.params.id;
+    var obj = req.body;
+
+    WebApiUtils.updateUser(userId, obj,
+      function(result) {
+      },
+      function(error) {
+        console.log(error);
+      }
+    );
   }
+
 };

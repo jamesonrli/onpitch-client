@@ -1,10 +1,12 @@
 var ParseUtils = require('./parse-utils');
 
 module.exports = {
-  updateProfile: function(profileId, profileChanges) {
+  updateUserProfile: function(profileId, profileChanges, onResult, onError) {
+    ParseUtils.updateUserProfile(profileId, profileChanges, onResult, onError);
   },
 
-  updateUser: function(userId, userChanges) {
+  updateUser: function(userId, userChanges, onResult, onError) {
+    ParseUtils.updateUser(userId, userChanges, onResult, onError);
   },
 
   getUserProfile: function(userId, onResult, onError) {

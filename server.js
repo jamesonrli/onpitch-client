@@ -18,7 +18,9 @@ app.use(express.static(__dirname + '/public'));
 /***************** END ***********************/
 
 /************* OnPitch API *******************/
+app.put('/user/:id', User.updateUser);
 app.get('/userProfile/:id', Profile.getUserProfile);
+app.put('/userProfile/:id', Profile.updateUserProfile);
 app.get('/userProjects/:id', Profile.getUserProjects);
 app.get('/userComments/:id', Comment.getUserComments);
 app.post('/userComments', Comment.newComment);
