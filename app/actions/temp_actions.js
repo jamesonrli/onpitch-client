@@ -41,57 +41,86 @@ var addUser = function(data) {
 	
 }
 
-var TempActions = {
-	signIn: function() {
-	  gapi.load("auth2", function() {
-		 gapi.auth2.init({"client_id" : UtilConstants.GOOGLE_CLIENT_ID})
-		 .then(function() {
-			var googleUser = gapi.auth2.getAuthInstance();
+var gSignIn = function() {
+	var googleUser = gapi.auth2.getAuthInstance();
 
-			// Check for gapi authorization
-			if (googleUser) {
+	// Check for gapi authorization
+	if (googleUser) {
+		
+		// Prompts for user login
+		googleUser.signIn({'prompt': 'consent'})
+		.then(function() {
+			
+			// Load gapi.client library
+			gapi.load("client", function() {
 				
-				// Prompts for user login
-				googleUser.signIn({'prompt': 'consent'})
-				.then(function() {
+				// Load gapi.client.plus library
+				gapi.client.load("plus", "v1").then(function() {
 					
-					// Load gapi.client library
-					gapi.load("client", function() {
+					// Retrieve authorized user's profile
+					gapi.client.plus.people.get({'userId':'me'})
+					.then(function(resp) {
+						var res = resp.result;
+						var user = {
+							"firstName": res.name.givenName,
+							"lastName": res.name.familyName,
+							"password": "onpitch_pw",
+							"image" : res.image.url.replace("sz=50", "sz=500"),
+							"id": res.id,
+							"gender": res.gender,
+							"email": res.emails[0].value, // emails:Array{type:String, value:String},
+							"url": res.url,
+							"username": res.emails[0].value.split("@")[0]
+						}
 						
-						// Load gapi.client.plus library
-						gapi.client.load("plus", "v1").then(function() {
-							
-							// Retrieve authorized user's profile
-							gapi.client.plus.people.get({'userId':'me'})
-							.then(function(resp) {
-								var res = resp.result;
-								var user = {
-									"firstName": res.name.givenName,
-									"lastName": res.name.familyName,
-									"password": "onpitch_pw",
-									"image" : res.image.url.replace("sz=50", "sz=500"),
-									"id": res.id,
-									"gender": res.gender,
-									"email": res.emails[0].value, // emails:Array{type:String, value:String},
-									"url": res.url,
-									"username": res.emails[0].value.split("@")[0]
-								}
-								
-								addUser(user);
-								
-								//Send basic user information object to Store								
-								AppDispatcher.handleDataAction({
-									actionType: OnPitchConstants.SIGN_IN,
-									data: user
-								});
-							});
+						addUser(user);
+						
+						//Send basic user information object to Store								
+						AppDispatcher.handleDataAction({
+							actionType: OnPitchConstants.SIGN_IN,
+							data: user
 						});
-					});					
+					});
 				});
-			}
-		 });
-	  });
-  }
+			});					
+		});
+	}
+}
+
+var TempActions = {
+	signOut: function() {
+		if (!gapi.auth2) {
+			gapi.load("auth2", function() {
+				 gapi.auth2.init({"client_id" : UtilConstants.GOOGLE_CLIENT_ID})
+				 .then(function() {
+					 gapi.auth2.getAuthInstance().signOut();
+				 })
+			});
+		}
+		else {
+			gapi.auth2.getAuthInstance().signOut();
+		}
+				
+		AppDispatcher.handleDataAction({
+			actionType: OnPitchConstants.SIGN_IN,
+			data: false
+		});
+	},
+	
+	signIn: function() {
+		if (!gapi.auth2)  {
+			gapi.load("auth2", function() {
+				gapi.auth2.init({"client_id" : UtilConstants.GOOGLE_CLIENT_ID})
+				.then(function() {
+					gSignIn();
+				});
+			});
+		}
+		else {
+			gSignIn();
+		}
+		
+	}
 }
 
 module.exports = TempActions;
