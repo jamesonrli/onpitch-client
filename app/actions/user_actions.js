@@ -27,6 +27,9 @@ var addUser = function(data) {
 			newUser.set("email", data.email);
 			newUser.set("firstName", data.firstName);
 			newUser.set("lastName", data.lastName);
+			newUser.set("image", data.image);
+			newUser.set("gender", data.gender);
+			newUser.set("url", data.url);
 			
 			newUser.signUp(null, {
 				success: function(newUser) {
@@ -36,6 +39,19 @@ var addUser = function(data) {
 					console.log(user, ": ", err)
 				}
 			})
+		}
+		else {
+			Parse.User.logIn(data.username, data.password).then(function(user) {				
+				user.set("username", data.username);
+				user.set("password", data.password);
+				user.set("email", data.email);
+				user.set("firstName", data.username);
+				user.set("lastName", data.lastName);
+				user.set("image", data.image);
+				user.set("gender", data.gender);
+				user.set("url", data.url);
+				user.save();
+			});
 		}
 	});
 	
@@ -118,7 +134,10 @@ var UserActions = {
 		}
 		else {
 			gSignIn();
-		}
+		}		
+	},
+	
+	signUp: function() {
 		
 	}
 }
