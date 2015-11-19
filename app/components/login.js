@@ -5,12 +5,14 @@ var UserActions = require('../actions/user_actions');
 var UserStore = require('../stores/user_store');
 var OnPitchConstants = require('../common/constants');
 
+var DEFAULT_IMG = "http://files.parsetfss.com/97567fb5-086d-4a0c-8c60-a70917bff8c6/tfss-cd8b6a00-0049-44e1-8f46-cf0695988277-sunset.jpg";
+
 var Login = React.createClass({	
 	getInitialState: function() {
 		var currUser = UserStore.getCurrentUser();
 
 		return ({
-			user: currUser ? currUser : {"image": "http://files.parsetfss.com/97567fb5-086d-4a0c-8c60-a70917bff8c6/tfss-cd8b6a00-0049-44e1-8f46-cf0695988277-sunset.jpg"}
+			user: currUser ? currUser : {"image": DEFAULT_IMG}
 		});
 	},
 
@@ -46,8 +48,7 @@ var Login = React.createClass({
 	
 	_onChange: function () {
 		var currUser = UserStore.getCurrentUser()
-		this.setState({user: currUser ? currUser : {"image": "http://files.parsetfss.com/97567fb5-086d-4a0c-8c60-a70917bff8c6/tfss-cd8b6a00-0049-44e1-8f46-cf0695988277-sunset.jpg"}});
-		console.log(this.state.user.username);
+		this.setState({user: currUser ? currUser : {"image": DEFAULT_IMG}});
 	}
 });
 

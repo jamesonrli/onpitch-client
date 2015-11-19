@@ -1,6 +1,6 @@
 var React = require('react');
-var MainActions = require('../actions/main_actions');
 var OnPitchConstants = require('../common/constants');
+var MainActions = require('../actions/main_actions');
 var UserStore = require('../stores/user_store');
 var UserActions = require('../actions/user_actions');
 
@@ -9,7 +9,8 @@ var NavBar = React.createClass({
 		var currUser = UserStore.getCurrentUser();
 		
 		return ({
-			signedIn: UserStore.getCurrentUser() ? "show" : "hide"
+			profilePic: currUser ? currUser['image'] : '',
+			signedIn: currUser ? "show" : "hide"
 		});
 	},
 
@@ -22,7 +23,12 @@ var NavBar = React.createClass({
 	},	
 	
 	_onChange: function () {
-		this.setState({signedIn: UserStore.getCurrentUser() ? "show" : "hide"});
+		var currUser = UserStore.getCurrentUser();
+		
+		this.setState({
+			profilePic: currUser ? currUser['image'] : '',
+			signedIn: currUser ? "show" : "hide"
+		});
 	},
 	
   myProfileHandler: function() {
@@ -56,7 +62,10 @@ var NavBar = React.createClass({
               <li><a onClick={this.myProfileHandler}>My Profile</a></li>
             </ul>			
 			<ul className="nav navbar-nav pull-right">
-				<li className={this.state.signedIn}><a onClick={this.signOutHandler}>Log Out</a></li>
+				<li className={this.state.signedIn}>
+					<a><img src={this.state.profilePic} className="img-circle" width="25" height="25"></img></a>
+				</li>
+				<li className={this.state.signedIn}><a onClick={this.signOutHandler}>Log Out</a></li>				
 			</ul>
           </div>
         </div>
