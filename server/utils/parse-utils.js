@@ -58,6 +58,38 @@ var ParseUtils = {
     );
   },
 
+  searchUsers: function(searchTerm, onResult, onError) {
+    var formattedSearchTerm = JSON.stringify({
+      "$or": [
+        {"username": {"$regex": ".*" + searchTerm + ".*"}},
+        {"firstName": {"$regex": ".*" + searchTerm + ".*"}},
+        {"lastName": {"$regex": ".*" + searchTerm + ".*"}},
+        {"email": {"$regex": ".*" + searchTerm + ".*@"}}
+      ]
+    });
+
+    var getOptions = {
+      host: UtilConstants.PARSE_HOST,
+      method: UtilConstants.GET,
+      headers: {
+        'X-Parse-Application-Id': UtilConstants.PARSE_APP_ID,
+        'X-Parse-REST-API-Key': UtilConstants.PARSE_REST_KEY
+      },
+      path: '/1/classes/_User?where=' + encodeURIComponent(formattedSearchTerm)
+    };
+
+    HttpsUtils.makeRequest(getOptions,
+      function(result) {
+        console.log(result);
+        onResult(result);
+      },
+      function(err) {
+        console.log(err);
+        onError(err);
+      }
+    );
+  },
+
   newUserProfile: function(userId, onResult, onError) {
     var postOptions = {
       host: UtilConstants.PARSE_HOST,

@@ -24,6 +24,20 @@ module.exports = {
         console.log(error);
       }
     );
+  },
+
+  queryUsers: function(req, res) {
+    var searchTerm = req.query.where;
+
+    WebApiUtils.searchUsers(searchTerm,
+      function(result) {
+        res.send(result.results);
+      },
+      function(error) {
+        res.send(400);
+        res.send(error);
+      }
+    );
   }
 
 };

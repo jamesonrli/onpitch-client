@@ -9,6 +9,10 @@ module.exports = {
     ParseUtils.updateUser(userId, userChanges, onResult, onError);
   },
 
+  searchUsers: function(searchTerm, onResult, onError) {
+    ParseUtils.searchUsers(searchTerm, onResult, onError);
+  },
+
   getUserProfile: function(userId, onResult, onError) {
     ParseUtils.getUserProfile(userId, onResult, onError);
   },
