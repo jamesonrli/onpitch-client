@@ -44,6 +44,25 @@ module.exports = {
     );
   },
 
+  searchUsers: function(searchTerm) {
+    var getOptions = {
+      host: UtilConstants.INTERNAL_HOST,
+      port: UtilConstants.INTERNAL_PORT,
+      method: UtilConstants.GET,
+      path: '/user?where=' + encodeURIComponent(searchTerm)
+    };
+
+    HttpUtils.makeRequest(getOptions,
+      function(result) {
+        var SearchActions = require('../actions/search_actions');
+        SearchActions.userSearchResults(result);
+      },
+      function(error) {
+        console.log(error);
+      }
+    );
+  },
+
   getUserProfile: function(userId) {
     var getOptions = {
       host: UtilConstants.INTERNAL_HOST,
