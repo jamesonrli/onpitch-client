@@ -55,12 +55,14 @@ var Landing = React.createClass({
 			<h1>{this.state.greeting}</h1>
 			<div>
 				<img src={this.state.user.image} className="img-circle" width="200" height="200"></img>
+				<div className="form-group">&nbsp;</div>{/*used for vertical spacing*/}				
 				<div className={this.state.isSignedIn}>
-					<div className='btn-group'>
-						<button className='btn btn-sm btn-primary' onClick={this.signUpHandler}> Sign Up </button>
-						<button className='btn btn-sm btn-default' onClick={this.signInHandler}> Login </button>
+					<div className="btn-group">
+						<button className='btn btn-lg btn-primary' onClick={this.signUpHandler}> Sign Up </button>
+						<button className='btn btn-lg btn-default' onClick={this.signInHandler}> Login </button>
 					</div>
 				</div>
+				
 			</div>
 			<div className="form-group">&nbsp;</div>{/*used for vertical spacing*/}
 			<Scroll />
