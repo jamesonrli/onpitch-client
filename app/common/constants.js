@@ -4,6 +4,7 @@ module.exports = {
   PAGE_LANDING: 'page-landing',
   PAGE_PROFILE: 'page-profile',
   PAGE_SIGN_UP: 'page-sign-up',
+  PAGE_SEARCH: 'page-search',
 
   SIGN_IN: 'user-change',
   PROFILE_CHANGE: 'profile-change',

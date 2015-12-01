@@ -43,6 +43,10 @@ var NavBar = React.createClass({
     MainActions.changePage(OnPitchConstants.PAGE_LANDING);
   },
 
+  searchHandler: function() {
+	MainActions.changePage(OnPitchConstants.PAGE_SEARCH);
+  },
+  
   signOutHandler: function() {
 	 UserActions.signOut(OnPitchConstants.SIGN_IN); 
   },
@@ -50,7 +54,7 @@ var NavBar = React.createClass({
   signInHandler: function() {
 	 UserActions.signIn(OnPitchConstants.SIGN_IN); 
   },
-  
+
   render: function() {			  
     return (
       <div className='navbar navbar-default' role='navigation'>
@@ -66,15 +70,22 @@ var NavBar = React.createClass({
           </div>
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<form className="navbar-form navbar-left" role="search">
+				<div className="form-group">
+				  <input type="text" className="form-control" placeholder="Search"></input>
+				</div>
+				<button type="submit" className="btn btn-default glyphicon glyphicon-search" onClick={this.searchHandler}></button>
+			</form>
             <ul className="nav navbar-nav">
 				<li className={this.state.isSignedIn}><a onClick={this.myProfileHandler}>My Profile</a></li>
             </ul>			
+			
 			<ul className="nav navbar-nav pull-right">
-				<li className={this.state.isSignedIn}>
-					<a><img src={this.state.profilePic} className="img-circle" width="25" height="25"></img></a>
+				<li className={this.state.isSignedIn}><a><img src={this.state.profilePic} className="img-square" width="30" height="30"></img></a></li>
+				<li className={this.state.isSignedIn}><a><button className="btn btn-sm btn-default" onClick={this.signOutHandler}>Log Out</button></a></li>
+				<li className={this.state.isSignedOut}>
+					<form className="navbar-form"><button className="btn btn-sm btn-default" onClick={this.signInHandler}>Log In</button></form>
 				</li>
-				<li className={this.state.isSignedIn}><a onClick={this.signOutHandler}>Log Out</a></li>				
-				<li className={this.state.isSignedOut}><a onClick={this.signInHandler}>Log In</a></li>
 			</ul>
           </div>
         </div>

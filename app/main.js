@@ -6,6 +6,7 @@ var Profile = require('./components/profile').Profile;
 var Landing = require('./components/landing').Landing;
 var SignUp = require('./components/signUp').SignUp;
 var NavBar = require('./components/navbar').NavBar;
+var Search = require('./components/search').Search;
 
 var MainStore = require('./stores/main_store');
 
@@ -35,6 +36,7 @@ var App = React.createClass({
               case OnPitchConstants.PAGE_PROFILE: return <Profile />;
               case OnPitchConstants.PAGE_LANDING: return <Landing />;
               case OnPitchConstants.PAGE_SIGN_UP: return <SignUp />;
+			  case OnPitchConstants.PAGE_SEARCH: return <Search />;
               default: return '';
             }
           })()}
