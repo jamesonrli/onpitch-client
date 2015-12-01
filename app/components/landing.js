@@ -54,7 +54,7 @@ var Landing = React.createClass({
 		  <div className="text-center">
 			<h1>{this.state.greeting}</h1>
 			<div>
-				<img src={this.state.user.image} className="img-circle" width="150" height="150"></img>
+				<img src={this.state.user.image} className="img-circle" width="200" height="200"></img>
 				<div className={this.state.isSignedIn}>
 					<div className='btn-group'>
 						<button className='btn btn-sm btn-primary' onClick={this.signUpHandler}> Sign Up </button>
@@ -96,7 +96,7 @@ var Scroll = React.createClass({
   render: function() {
     return (
 
-      <div className="n tabs-left">
+      <div className="tabs-left">
         <div className='container-fluid'>
           <div>
             <ul className="nav nav-tabs">
