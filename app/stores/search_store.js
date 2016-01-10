@@ -3,10 +3,20 @@ var AppDispatcher = require('../dispatcher/app_dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
+var _searchResult = [];
+
+function setSearchResult(data) {
+  _searchResult = data;
+}
+
 var SearchStore = assign(new EventEmitter(), {
 
-  emitChange: function(actionType, results) {
-    this.emit(actionType, results);
+  getSearchResults: function() {
+    return _searchResult;
+  },
+
+  emitChange: function(actionType) {
+    this.emit(actionType);
   },
 
   addChangeListener: function(actionType, callback) {
@@ -23,7 +33,8 @@ var SearchStore = assign(new EventEmitter(), {
 
     switch(action.actionType) {
       case OnPitchConstants.USER_SEARCH_RESULT: {
-        SearchStore.emitChange(OnPitchConstants.USER_SEARCH_RESULT, results);
+        setSearchResult(results);
+        SearchStore.emitChange(OnPitchConstants.USER_SEARCH_RESULT);
       }
     }
 
