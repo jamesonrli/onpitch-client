@@ -12,26 +12,6 @@ var Search = React.createClass({
 					<div className="panel panel-default">
 						<div className="panel-heading">Options will go here?</div>
 						<div className="panel-body">							
-							<div className="col-md-3">
-								<li>opt 1</li>
-								<li>opt 2</li>
-								<li>opt 3</li>
-							</div>
-							<div className="col-md-3">
-								<li>opt 4</li>
-								<li>opt 5</li>
-								<li>opt 6</li>
-							</div>
-							<div className="col-md-3">
-								<li>opt 7</li>
-								<li>opt 8</li>
-								<li>opt 9</li>
-							</div>
-							<div className="col-md-3">
-								<li>opt 10</li>
-								<li>opt 11</li>
-								<li>opt 12</li>
-							</div>
 						</div>
 					</div>
 					<div className="row">

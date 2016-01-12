@@ -69,18 +69,23 @@ var NavBar = React.createClass({
           </div>
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <SearchBox />
-            <ul className="nav navbar-nav">
-              <li className={this.state.isSignedIn}><a onClick={this.myProfileHandler}>My Profile</a></li>
-            </ul>
-
-            <ul className="nav navbar-nav pull-right">
-              <li className={this.state.isSignedIn}><a onClick={this.myProfileHandler}><img src={this.state.profilePic} className="img-square" width="30" height="30"></img></a></li>
-              <li className={this.state.isSignedIn}><a><button className="btn btn-sm btn-default" onClick={this.signOutHandler}>Log Out</button></a></li>
-              <li className={this.state.isSignedOut}>
-                <form className="navbar-form"><button className="btn btn-sm btn-default" onClick={this.signInHandler}>Log In</button></form>
-              </li>
-            </ul>
+			<div className="navbar-form">
+				<ul className="nav navbar-nav">
+					<li><SearchBox /></li>
+					<li className={this.state.isSignedIn}><button onClick={this.myProfileHandler} className="btn">My Profile</button></li>
+				</ul>
+				
+				<ul className="nav navbar-nav pull-right">
+					<li className={this.state.isSignedIn}  onClick={this.myProfileHandler}>
+						<img src={this.state.profilePic} className="img-square" width="30" height="30"></img>
+					</li>
+					<li className={this.state.isSignedIn}>
+						<button className="btn btn-sm btn-default" onClick={this.signOutHandler}>Log Out</button></li>
+					<li className={this.state.isSignedOut}>
+						<button className="btn btn-sm btn-default" onClick={this.signInHandler}>Log In</button>
+					</li>				
+				</ul>
+			</div>
           </div>
         </div>
       </div>

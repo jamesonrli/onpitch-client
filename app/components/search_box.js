@@ -27,13 +27,13 @@ var SearchBox = React.createClass({
   },
 
   render: function() {
-    return (
-      <div>
-        <form className="navbar-form navbar-left">
-          <input type="text" className="form-control" value={this.state.searchValue} onChange={this.handleChange} placeholder="Search"></input>
-        </form>
-        <button className="btn btn-default glyphicon glyphicon-search" onClick={this.handleSearch}></button>
-      </div>
+    return (      
+        <div className="input-group">
+          <input type="text" className="form-control" value={this.state.searchValue} onChange={this.handleChange} placeholder="Search"></input>       
+         <span className="btn btn-default input-group-addon">
+			<button className="glyphicon glyphicon-search" onClick={this.handleSearch} type="button"></button>
+		 </span>
+      </div>	  
     );
   }
 });
