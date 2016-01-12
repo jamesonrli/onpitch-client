@@ -12,75 +12,75 @@ var WHO = "Link 2";
 var MORE = "Link 3";
 
 var Landing = React.createClass({
-	getInitialState: function() {
-		var currUser = UserStore.getCurrentUser();
-		
-		return ({
-			user: currUser ? currUser : {"image": DEFAULT_IMG},
-			isSignedIn: currUser ? "hide" : "show",
-			greeting: currUser ? ("Welcome Back "+currUser.firstName) : "OnPitch"
-		});
-	},
-	
-	componentDidMount: function() {
-		UserStore.addChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
-	},
+  getInitialState: function() {
+    var currUser = UserStore.getCurrentUser();
 
-	componentWillUnmount: function() {
-		UserStore.removeChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
-	},	
-	
-	signUpHandler: function() {
-		MainActions.changePage(OnPitchConstants.PAGE_SIGN_UP);
-	},
+    return ({
+      user: currUser ? currUser : {"image": DEFAULT_IMG},
+      isSignedIn: currUser ? "hide" : "show",
+      greeting: currUser ? ("Welcome Back "+currUser.firstName) : "OnPitch"
+    });
+  },
 
-	signInHandler: function() {
-		UserActions.signIn(OnPitchConstants.SIGN_IN);
-	},	
-	
-	_onChange: function () {
-		var currUser = UserStore.getCurrentUser();
+  componentDidMount: function() {
+    UserStore.addChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
+  },
 
-		this.setState({
-			user: currUser ? currUser : {"image": DEFAULT_IMG},
-			isSignedIn: currUser ? "hide" : "show",
-			greeting: currUser ? ("Welcome Back "+currUser.firstName) : "OnPitch"
-		});
-	},
-	
-	render: function() {
-		return (
-		<div className='container'>
-		  <div className="text-center">
-			<h1>{this.state.greeting}</h1>
-			<div>
-				<img src={this.state.user.image} className="img-circle" width="200" height="200"></img>
-				<div className="form-group">&nbsp;</div>{/*used for vertical spacing*/}				
-				<div className={this.state.isSignedIn}>
-					<div className="btn-group">
-						<button className='btn btn-lg btn-primary' onClick={this.signUpHandler}> Sign Up </button>
-						<button className='btn btn-lg btn-default' onClick={this.signInHandler}> Login </button>
-					</div>
-				</div>
-				
-			</div>
-			<div className="form-group">&nbsp;</div>{/*used for vertical spacing*/}
-			<Scroll />
-		  </div>
-		  
+  componentWillUnmount: function() {
+    UserStore.removeChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
+  },
 
-		</div>
-		);
-	}
+  signUpHandler: function() {
+    MainActions.changePage(OnPitchConstants.PAGE_SIGN_UP);
+  },
+
+  signInHandler: function() {
+    UserActions.signIn(OnPitchConstants.SIGN_IN);
+  },
+
+  _onChange: function () {
+    var currUser = UserStore.getCurrentUser();
+
+    this.setState({
+      user: currUser ? currUser : {"image": DEFAULT_IMG},
+      isSignedIn: currUser ? "hide" : "show",
+      greeting: currUser ? ("Welcome Back "+currUser.firstName) : "OnPitch"
+    });
+  },
+
+  render: function() {
+    return (
+    <div ref="landingContainer" className='container'>
+      <div className="text-center">
+      <h1>{this.state.greeting}</h1>
+      <div>
+        <img src={this.state.user.image} className="img-circle" width="200" height="200"></img>
+        <div className="form-group">&nbsp;</div>{/*used for vertical spacing*/}
+        <div className={this.state.isSignedIn}>
+          <div className="btn-group">
+            <button className='btn btn-lg btn-primary' onClick={this.signUpHandler}> Sign Up </button>
+            <button className='btn btn-lg btn-default' onClick={this.signInHandler}> Login </button>
+          </div>
+        </div>
+
+      </div>
+      <div className="form-group">&nbsp;</div>{/*used for vertical spacing*/}
+      <Scroll />
+      </div>
+
+
+    </div>
+    );
+  }
 });
 
 var Scroll = React.createClass({
   getInitialState: function() {
-		var currUser = UserStore.getCurrentUser();
-	  
-		return ({
-			tab : INTRO
-		});
+    var currUser = UserStore.getCurrentUser();
+
+    return ({
+      tab : INTRO
+    });
   },
 
   setT1: function(event) {
