@@ -3,16 +3,22 @@ var AppDispatcher = require('../dispatcher/app_dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
-var _currentUser = null;
+var _currentUser = {"image": "", "firstName": "Anon"};
+var _isSignedIn = false;
 
 function setCurrentUser(data) {
 	_currentUser = data;
+	_isSignedIn = data ? true : false;
 }
 
 var UserStore = assign(new EventEmitter(), {
  
 	getCurrentUser: function() {
 		return _currentUser; 
+	},
+  
+	isSignedIn: function() {
+		return _isSignedIn;
 	},
   
 	emitChange: function(actionType) {

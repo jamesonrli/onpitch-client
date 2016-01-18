@@ -17,9 +17,8 @@ describe('Landing', () => {
 	const DEFAULT_IMG = "http://files.parsetfss.com/97567fb5-086d-4a0c-8c60-a70917bff8c6/tfss-cd8b6a00-0049-44e1-8f46-cf0695988277-sunset.jpg";
 
 	it('Check all default states', () => {
-		expect(landing.state.userPic.image).toBe(DEFAULT_IMG)
-		expect(landing.state.greeting).toBe("OnPitch")
-		expect(landing.state.isSignedIn).toContain("show")
+		expect(landing.state.profileImg).toBe(DEFAULT_IMG)
+		expect(landing.state.isSignedIn).toBeFalsy()
 	});
 	
 });
@@ -36,9 +35,10 @@ describe('Scroll', () => {
 	it('Simulate Clicks', () => {
 		var tabs = TestUtils.scryRenderedDOMComponentsWithTag(scroll, "li")				
 		
-		// expect(tabs[0].textContent).toBe("Introduction")
-		// expect(tabs[1].textContent).toBe("Who We Are")
-		// expect(tabs[2].textContent).toBe("More Info")
+		expect(tabs[0].textContent).toBe("Introduction")
+		expect(tabs[1].textContent).toBe("Who We Are")
+		expect(tabs[2].textContent).toBe("Techies")
+		expect(tabs[3].textContent).toBe("Thanks")
 		
 		TestUtils.Simulate.click(tabs[2])
 		expect(scroll.state.tab).toBe(TECH)

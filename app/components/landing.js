@@ -14,12 +14,10 @@ const THANKS = "Thank you for taking a look at our website!";
 
 var Landing = React.createClass({
   getInitialState: function() {
-    var currUser = UserStore.getCurrentUser();
 
-    return ({
-      userPic: currUser ? currUser : {"image": DEFAULT_IMG},
-      isSignedIn: currUser ? "hide" : "show",
-      greeting: currUser ? ("Welcome Back "+currUser.firstName) : "OnPitch"
+    return ({      
+      isSignedIn: UserStore.isSignedIn(),
+	  profileImg: UserStore.isSignedIn() ? UserStore.getCurrentUser()['image'] : DEFAULT_IMG	  
     });
   },
 
@@ -39,13 +37,11 @@ var Landing = React.createClass({
     UserActions.signIn(OnPitchConstants.SIGN_IN);
   },
 
-  _onChange: function () {
-    var currUser = UserStore.getCurrentUser();
+  _onChange: function () {    
 
-    this.setState({
-      userPic: currUser ? currUser : {"image": DEFAULT_IMG},
-      isSignedIn: currUser ? "hide" : "show",
-      greeting: currUser ? ("Welcome Back "+currUser.firstName) : "OnPitch"
+    this.setState({      
+      isSignedIn: UserStore.isSignedIn(),
+	  profileImg: UserStore.isSignedIn() ? UserStore.getCurrentUser()['image'] : DEFAULT_IMG	  
     });
   },
 
@@ -53,14 +49,13 @@ var Landing = React.createClass({
     return (
     <div className='container'>
       <div className="text-center">
-      <h1>{this.state.greeting}</h1>
+      <h1>OnPitch</h1>
       <div>
-        <img src={this.state.userPic.image} className="img-circle" width="200" height="200"></img>
+        <img src={this.state.profileImg} className="img-circle" width="200" height="200"></img>
         <div className="form-group">&nbsp;</div>{/*used for vertical spacing*/}
-        <div className={this.state.isSignedIn}>
-          <div className="btn-group">
-            <button className='btn btn-lg btn-primary' onClick={this.signUpHandler}> Sign Up </button>
-            <button className='btn btn-lg btn-default' onClick={this.signInHandler}> Login </button>
+        <div className={this.state.isSignedIn ? "hide" : "show"}>
+          <div className="btn-group">          
+            <button className='btn btn-md btn-default' onClick={this.signInHandler}> Sign In with Google </button>
           </div>
         </div>
 
