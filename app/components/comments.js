@@ -9,8 +9,9 @@ var ProfileStore = require('../stores/profile_store');
 
 var CommentBox = React.createClass({
   getInitialState: function() {
+    var initialCommentList = CommentStore.getCurrentComments();
     return {
-      commentList: CommentStore.getCurrentComments()
+      commentList: initialCommentList ? initialCommentList : []
     };
   },
 
@@ -25,6 +26,7 @@ var CommentBox = React.createClass({
 
   commentSubmitHandler: function(comment) {
     CommentActions.newComment(ProfileStore.getUserId(), ProfileStore.getUserId(), comment); // todo: get author id when login store is available
+    this.state.commentList.push(comment);
   },
 
   render: function() {
@@ -109,3 +111,6 @@ var CommentForm = React.createClass({
 });
 
 exports.CommentBox = CommentBox;
+exports.CommentList = CommentList;
+exports.CommentForm = CommentForm;
+exports.Comment = Comment;
