@@ -26,7 +26,14 @@ var SearchResult = React.createClass({
       <h1>Search Results</h1>
       <div>
       {this.state.searchResults.map(function(user, i) {
-        return <p>{user.userId.username}</p>
+        return (
+          <div>
+            <p>{user.userId.username}</p>
+            <img className='profileImage thumbnail col-sm-4' src={user.userId.image} />
+            <p>{user.headline}</p>
+            <br></br>
+          </div>
+        );
         }, this)
       }
       </div>
