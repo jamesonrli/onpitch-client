@@ -22,15 +22,15 @@ var SearchResult = React.createClass({
 
   render: function() {
     return (
-		<div>
-		  <h1>Search Results</h1>
-		  <div>
-			{this.state.searchResults.map(function(user, i) {
-				return <p>{user.username}</p>
-			  }, this)
-			}
-		  </div>
-	  </div>
+    <div>
+      <h1>Search Results</h1>
+      <div>
+      {this.state.searchResults.map(function(user, i) {
+        return <p>{user.userId.username}</p>
+        }, this)
+      }
+      </div>
+    </div>
     );
   },
 

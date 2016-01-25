@@ -80,8 +80,11 @@ var ParseUtils = {
 
     HttpsUtils.makeRequest(getOptions,
       function(result) {
-        console.log(result);
-        onResult(result);
+        var userList = [];
+        result.results.forEach(function(user) {
+          userList.push(user.objectId);
+        });
+        ParseUtils.searchUserProfiles(userList, onResult, onError);
       },
       function(err) {
         console.log(err);
@@ -120,6 +123,43 @@ var ParseUtils = {
         onError(error);
       },
       JSON.stringify(content)
+    );
+  },
+
+  searchUserProfiles: function(userIds, onResult, onError) {
+    var restrictArr = [];
+
+    userIds.forEach(function(userId) {
+      restrictArr.push({userId: {
+        __type: 'Pointer',
+        className: '_User',
+        objectId: userId
+      }});
+    });
+
+    var restrict = JSON.stringify({"$or": restrictArr});
+
+    console.log(restrict);
+
+    var getOptions = {
+      host: UtilConstants.PARSE_HOST,
+      method: UtilConstants.GET,
+      headers: {
+        'X-Parse-Application-Id': UtilConstants.PARSE_APP_ID,
+        'X-Parse-REST-API-Key': UtilConstants.PARSE_REST_KEY
+      },
+      path: '/1/classes/Profile?where=' + encodeURIComponent(restrict) + "&include=userId"
+    };
+
+    HttpsUtils.makeRequest(getOptions,
+      function(result) {
+        console.log(result);
+        onResult(result);
+      },
+      function(err) {
+        console.log(err);
+        onError(err);
+      }
     );
   },
 
