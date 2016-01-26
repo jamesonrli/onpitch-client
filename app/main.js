@@ -4,7 +4,6 @@ var ReactDOM = require('react-dom');
 var OnPitchConstants = require('./common/constants');
 var Profile = require('./components/profile').Profile;
 var Landing = require('./components/landing').Landing;
-var SignUp = require('./components/signUp').SignUp;
 var NavBar = require('./components/navbar').NavBar;
 var Search = require('./components/search').Search;
 var SearchResult = require('./components/search_result').SearchResult;

@@ -29,10 +29,6 @@ var Landing = React.createClass({
     UserStore.removeChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
   },
 
-  signUpHandler: function() {
-    MainActions.changePage(OnPitchConstants.PAGE_SIGN_UP);
-  },
-
   signInHandler: function() {
     UserActions.signIn(OnPitchConstants.SIGN_IN);
   },

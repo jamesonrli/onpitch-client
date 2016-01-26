@@ -135,10 +135,6 @@ var UserActions = {
     else {
       gSignIn();
     }
-  },
-
-  signUp: function() {
-
   }
 };
 
