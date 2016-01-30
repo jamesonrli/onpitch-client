@@ -1,0 +1,14 @@
+.cardList {
+  margin-top: 20px;
+  padding-top: 20px;
+  background-color: lightgray;
+}
+
+.cardImage {
+  width: 100px;
+  height: 100px;
+}
+
+.cardBlock {
+  max-width: 500px;
+}

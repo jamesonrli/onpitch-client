@@ -2,6 +2,8 @@ var React = require('react');
 var OnPitchConstants = require('../common/constants');
 
 var CommentBox = require('./comments').CommentBox;
+var CardList = require('./card_list').CardList;
+
 var Profile = React.createClass({
   render: function() {
     return (
@@ -37,7 +39,7 @@ var ProfileBox = React.createClass({
     return (
       <div>
         <ProfileIntro profile={this.state.profile}/>
-        <ProfileProjects projects={this.state.projects}/>
+        <CardList items={this.state.projects}/>
       </div>
     );
   },
@@ -120,28 +122,6 @@ var ProfileIntro = React.createClass({
           <button className='btn btn-sm'>Send Message</button>
           <button className='btn btn-sm'>Edit Profile</button>
         </div>
-      </div>
-    );
-  }
-});
-
-var ProfileProjects = React.createClass({
-  render: function() {
-    return (
-      <div className='profileProjectList container-fluid'>
-        {this.props.projects.map(function(project, i) {
-          return (
-            <div key={i} className='profileProjectBlock container col-md-6'>
-              <div className="col-xs-4">
-                <img className='profileProjectImage thumbnail' src={project.imageURL} />
-              </div>
-              <div className='profileProjectDetails col-xs-8'>
-                <p className="list-group-item-heading">{project.name}</p>
-                <p className="list-group-item-text">{project.description}</p>
-              </div>
-            </div>
-          );
-        })}
       </div>
     );
   }

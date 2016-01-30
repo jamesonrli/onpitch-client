@@ -9,92 +9,92 @@ var SearchBox = require('./search_box').SearchBox;
 
 const DEFAULT_PROFILE_PIC = "http://files.parsetfss.com/97567fb5-086d-4a0c-8c60-a70917bff8c6/tfss-cd8b6a00-0049-44e1-8f46-cf0695988277-sunset.jpg";
 
-var NavBar = React.createClass({    		
-	getInitialState: function() {		
-		var loginUpdate = UserStore.isSignedIn()
-	
-		return ({
-			isSignedIn: loginUpdate,
-			loggedIn: "btn btn-default btn-md " + (loginUpdate ? "show" : "hide"),
-			profilePic: loginUpdate ? UserStore.getCurrentUser()['image'] : DEFAULT_PROFILE_PIC
-		})
-	},
-  
-	componentDidMount: function() {
-		UserStore.addChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
-	},
+var NavBar = React.createClass({
+  getInitialState: function() {
+    var loginUpdate = UserStore.isSignedIn();
 
-	componentWillUnmount: function() {
-		UserStore.removeChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
-	},
+    return ({
+      isSignedIn: loginUpdate,
+      loggedIn: "btn btn-default btn-md " + (loginUpdate ? "show" : "show"),
+      profilePic: loginUpdate ? UserStore.getCurrentUser().image : DEFAULT_PROFILE_PIC
+    });
+  },
 
-	_onChange: function () {
-		var loginUpdate = UserStore.isSignedIn();
+  componentDidMount: function() {
+    UserStore.addChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
+  },
 
-		this.setState({		  
-			isSignedIn: loginUpdate,
-			loggedIn: "btn btn-default btn-md " + (loginUpdate ? "show" : "hide"),
-			profilePic: loginUpdate ? UserStore.getCurrentUser()['image'] : DEFAULT_PROFILE_PIC
-		});
-	},
-	
-	signOutHandler: function() {
-		UserActions.signOut(OnPitchConstants.SIGN_IN);
-	},
+  componentWillUnmount: function() {
+    UserStore.removeChangeListener(OnPitchConstants.SIGN_IN, this._onChange);
+  },
 
-	signInHandler: function() {
-		UserActions.signIn(OnPitchConstants.SIGN_IN);
-	},	  
-	
-	myProfileHandler: function() {
-		MainActions.changePage(OnPitchConstants.PAGE_PROFILE);
-	},
+  _onChange: function () {
+    var loginUpdate = UserStore.isSignedIn();
 
-	landingHandler: function() {
-		MainActions.changePage(OnPitchConstants.PAGE_LANDING);
-	},
+    this.setState({
+      isSignedIn: loginUpdate,
+      loggedIn: "btn btn-default btn-md " + (loginUpdate ? "show" : "hide"),
+      profilePic: loginUpdate ? UserStore.getCurrentUser().image : DEFAULT_PROFILE_PIC
+    });
+  },
 
-	render: function() {
-		
+  signOutHandler: function() {
+    UserActions.signOut(OnPitchConstants.SIGN_IN);
+  },
+
+  signInHandler: function() {
+    UserActions.signIn(OnPitchConstants.SIGN_IN);
+  },
+
+  myProfileHandler: function() {
+    MainActions.changePage(OnPitchConstants.PAGE_PROFILE);
+  },
+
+  landingHandler: function() {
+    MainActions.changePage(OnPitchConstants.PAGE_LANDING);
+  },
+
+  render: function() {
+
     return (
-		<div className='navbar navbar-default' role='navigation'>
-			<div className='container-fluid'>
-				<div className="navbar-header">
-					<button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-					  <span className="sr-only"> Toggle navigation</span>
-					  <span className="icon-bar" />
-					  <span className="icon-bar" />
-					  <span className="icon-bar" />
-					</button>
-					<a className="navbar-brand" onClick={this.landingHandler}>OnPitch</a>
-				</div>
+    <div className='navbar navbar-default' role='navigation'>
+      <div className='container-fluid'>
+        <div className="navbar-header">
+          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span className="sr-only"> Toggle navigation</span>
+            <span className="icon-bar" />
+            <span className="icon-bar" />
+            <span className="icon-bar" />
+          </button>
+          <a className="navbar-brand" onClick={this.landingHandler}>OnPitch</a>
+        </div>
 
-				<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<div className="navbar-form">
-						<ul className="nav navbar-nav">
-							<li><SearchBox /></li>
-							<li>
-								<button onClick={this.myProfileHandler} className={this.state.loggedIn}>
-									My Profile
-								</button>
-							</li>
-						</ul>
-										
-						<ul className="nav navbar-nav pull-right">				
-							<li>
-								<img src={this.state.profilePic} width="35" height="35"></img>
-							</li>
-							<li>
-								<button className="btn btn-md btn-default" onClick={this.state.isSignedIn ? this.signOutHandler : this.signInHandler}>
-									{this.state.isSignedIn ? "Log Out" : "Log In" }
-								</button>
-							</li>			
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+        <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <div className="navbar-form">
+            <ul className="nav navbar-nav">
+              <li><SearchBox /></li>
+              <li>
+                <button onClick={this.myProfileHandler} className={this.state.loggedIn}>
+                  My Profile
+                </button>
+              </li>
+            </ul>
+
+            <ul className="nav navbar-nav pull-right">
+              <li>
+                <img src={this.state.profilePic} width="35" height="35"></img>
+              </li>
+              <li>
+                <button className="btn btn-md btn-default" onClick={this.state.isSignedIn ? this.signOutHandler : this.signInHandler}>
+                  {this.state.isSignedIn ? "Log Out" : "Log In" }
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
   }
 });
 
