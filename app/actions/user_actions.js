@@ -41,17 +41,7 @@ var addUser = function(data) {
       });
     }
     else {
-      Parse.User.logIn(data.username, data.password).then(function(user) {
-        user.set("username", data.username);
-        user.set("password", data.password);
-        user.set("email", data.email);
-        user.set("firstName", data.username);
-        user.set("lastName", data.lastName);
-        user.set("image", data.image);
-        user.set("gender", data.gender);
-        user.set("url", data.url);
-        user.save();
-      });
+      Parse.User.logIn(data.username, data.password);
     }
   });
 
