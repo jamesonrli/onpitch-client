@@ -4,6 +4,18 @@ var SearchActions = require('../actions/search_actions');
 var SearchStore = require('../stores/search_store');
 var MainActions = require('../actions/main_actions');
 
+var CardList = require("./card_list").CardList;
+
+function prepareResultForCardList(searchResult) {
+  return searchResult.map(function(result, i) {
+    return {
+      name: result.userId.firstName + " " + result.userId.lastName,
+      description: result.headline,
+      imageURL: result.userId.image
+    };
+  });
+}
+
 var SearchResult = React.createClass({
 
   getInitialState: function() {
@@ -24,19 +36,7 @@ var SearchResult = React.createClass({
     return (
     <div>
       <h1>Search Results</h1>
-      <div>
-      {this.state.searchResults.map(function(user, i) {
-        return (
-          <div>
-            <p>{user.userId.username}</p>
-            <img className='profileImage thumbnail col-sm-4' src={user.userId.image} />
-            <p>{user.headline}</p>
-            <br></br>
-          </div>
-        );
-        }, this)
-      }
-      </div>
+      <CardList items={prepareResultForCardList(this.state.searchResults)} />
     </div>
     );
   },

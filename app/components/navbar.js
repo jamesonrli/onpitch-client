@@ -15,7 +15,7 @@ var NavBar = React.createClass({
 
     return ({
       isSignedIn: loginUpdate,
-      loggedIn: "btn btn-default btn-md " + (loginUpdate ? "show" : "show"),
+      loggedIn: "btn btn-default btn-md " + (loginUpdate ? "show" : "hide"),
       profilePic: loginUpdate ? UserStore.getCurrentUser().image : DEFAULT_PROFILE_PIC
     });
   },
