@@ -27,7 +27,7 @@ var ProfileStore = assign(new EventEmitter(), {
   getCurrentProfile: function() {
     if(!_currentProfile) {
       _currentProfile = new Profile();
-	  ProfileActions.getProfile(Parse.User.current().id)	        
+      ProfileActions.getProfile(Parse.User.current().id);
     }
     return _currentProfile;
   },

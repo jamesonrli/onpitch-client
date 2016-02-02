@@ -16,7 +16,7 @@ var ProfileActions = {
       actionType: OnPitchConstants.PROFILE_CHANGE,
       profileData: new Profile(profileData.userId.objectId,
         profileData.userId.firstName, profileData.userId.lastName,
-        profileData.objectId, profileData.profileImage.url, profileData.headline)
+        profileData.objectId, profileData.userId.image, profileData.headline)
     });
   },
 
