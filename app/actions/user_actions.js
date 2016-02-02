@@ -12,13 +12,7 @@ var addUser = function(data) {
 
   var userObj = new Parse.Query(Parse.User);
   userObj.equalTo("username", data.username);
-  userObj.find({
-    error: function(err) {
-      console.log(err);
-    }
-  })
-  .then(function (result) {
-
+  userObj.find().then(function (result) {
     //only one matching username is expected
     if (!result[0]) {
       var newUser = new Parse.User();
@@ -106,6 +100,7 @@ var UserActions = {
     else {
       gapi.auth2.getAuthInstance().signOut();
     }
+	Parse.User.logOut()
 
     AppDispatcher.handleDataAction({
       actionType: OnPitchConstants.SIGN_IN,

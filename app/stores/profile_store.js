@@ -27,7 +27,7 @@ var ProfileStore = assign(new EventEmitter(), {
   getCurrentProfile: function() {
     if(!_currentProfile) {
       _currentProfile = new Profile();
-      ProfileActions.getProfile('f9D8M07W6b');
+	  ProfileActions.getProfile(Parse.User.current().id)	        
     }
     return _currentProfile;
   },
@@ -35,7 +35,7 @@ var ProfileStore = assign(new EventEmitter(), {
   getCurrentProjects: function() {
     if(!_currentProjects) {
       _currentProjects = [];
-      ProfileActions.getProjects('f9D8M07W6b');
+      ProfileActions.getProjects(Parse.User.current().id);
     }
 
     return _currentProjects;
