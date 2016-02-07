@@ -21,13 +21,21 @@ var Profile = require('../data/profile');
 var ProfileStore = assign(new EventEmitter(), {
 
   getUserId: function() {
-    return _userId;
+    return _userId ? _userId : Parse.User.current().id;
+  },
+
+  setCurrentProfile: function(userId) {
+    _userId = userId;
+
+    // reset _currentProfile and _currentProjects when setting new user
+    _currentProfile = null;
+    _currentProjects = null;
   },
 
   getCurrentProfile: function() {
     if(!_currentProfile) {
       _currentProfile = new Profile();
-      ProfileActions.getProfile(Parse.User.current().id);
+      ProfileActions.getProfile(this.getUserId());
     }
     return _currentProfile;
   },
@@ -35,7 +43,7 @@ var ProfileStore = assign(new EventEmitter(), {
   getCurrentProjects: function() {
     if(!_currentProjects) {
       _currentProjects = [];
-      ProfileActions.getProjects(Parse.User.current().id);
+      ProfileActions.getProjects(this.getUserId());
     }
 
     return _currentProjects;

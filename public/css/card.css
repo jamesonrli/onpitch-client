@@ -12,3 +12,7 @@
 .cardBlock {
   max-width: 500px;
 }
+
+.clickableArea {
+  cursor: pointer;
+}

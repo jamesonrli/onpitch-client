@@ -6,7 +6,7 @@ var CardList = React.createClass({
       <div className='cardList container-fluid'>
         {this.props.items.map(function(item, i) {
           return (
-            <div key={i} className='cardBlock container col-md-6'>
+            <div key={i} className='clickableArea cardBlock container col-md-6' onClick={item.clickHandler}>
               <div className="col-xs-4">
                 <img className='cardImage thumbnail' src={item.imageURL} />
               </div>

@@ -2,6 +2,7 @@ var React = require('react');
 var OnPitchConstants = require('../common/constants');
 var SearchActions = require('../actions/search_actions');
 var SearchStore = require('../stores/search_store');
+var ProfileStore = require('../stores/profile_store');
 var MainActions = require('../actions/main_actions');
 
 var CardList = require("./card_list").CardList;
@@ -11,7 +12,14 @@ function prepareResultForCardList(searchResult) {
     return {
       name: result.userId.firstName + " " + result.userId.lastName,
       description: result.headline,
-      imageURL: result.userId.image
+      imageURL: result.userId.image,
+
+      clickHandler: function() {
+        console.log("result item clicked");
+        ProfileStore.setCurrentProfile(result.userId.objectId);
+        MainActions.changePage(OnPitchConstants.PAGE_PROFILE);
+      }
+
     };
   });
 }
