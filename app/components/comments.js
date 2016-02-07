@@ -6,6 +6,7 @@ var CommentStore = require('../stores/comment_store');
 var CommentActions = require('../actions/comment_actions');
 
 var ProfileStore = require('../stores/profile_store');
+var UserStore = require('../stores/user_store');
 
 var CommentBox = React.createClass({
   getInitialState: function() {

@@ -5,9 +5,13 @@ module.exports = {
     var obj = req.body.object;
     WebApiUtils.newUserProfile(obj.objectId,
       function(result) {
+        res.send({'success': true});
+        res.end();
         console.log(result);
       },
       function(err) {
+        res.send({'success': false});
+        res.end();
         console.log(err);
       }
     );

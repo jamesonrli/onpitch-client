@@ -11,6 +11,7 @@ module.exports = function(io) {
       io.sockets.in(ServerConstants.COMMENT_UPDATE_EVENT + '-' + obj.userId.objectId).
         emit(ServerConstants.COMMENT_UPDATE_EVENT, {userId: obj.userId.objectId});
 
+      res.send({"success":true});
       res.end();
     }
   };
