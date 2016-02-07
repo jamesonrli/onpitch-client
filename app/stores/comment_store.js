@@ -27,7 +27,7 @@ var CommentStore = assign(new EventEmitter(), {
   getCurrentComments: function() {
     if(!_currentComments) {
       _currentComments = [];
-      CommentActions.getComments('f9D8M07W6b');
+      CommentActions.getComments(ProfileStore.getUserId());
     }
 
     return _currentComments;
@@ -38,7 +38,7 @@ var CommentStore = assign(new EventEmitter(), {
   },
 
   subscribeEvents: function() {
-    subscribeCommentChanges('f9D8M07W6b');
+    subscribeCommentChanges(ProfileStore.getUserId());
   },
 
   addChangeListener: function(actionType, callback) {

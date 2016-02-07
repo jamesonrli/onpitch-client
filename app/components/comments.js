@@ -25,7 +25,7 @@ var CommentBox = React.createClass({
   },
 
   commentSubmitHandler: function(comment) {
-    CommentActions.newComment(ProfileStore.getUserId(), ProfileStore.getUserId(), comment); // todo: get author id when login store is available
+    CommentActions.newComment(UserStore.getCurrentUserId(), ProfileStore.getUserId(), comment); // todo: get author id when login store is available
     this.state.commentList.push(comment);
   },
 

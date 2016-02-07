@@ -7,45 +7,49 @@ var _currentUser = {"image": "", "firstName": "Anon"};
 var _isSignedIn = false;
 
 function setCurrentUser(data) {
-	_currentUser = data;
-	_isSignedIn = data ? true : false;
+  _currentUser = data;
+  _isSignedIn = data ? true : false;
 }
 
 var UserStore = assign(new EventEmitter(), {
- 
-	getCurrentUser: function() {
-		return _currentUser; 
-	},
-  
-	isSignedIn: function() {
-		return _isSignedIn;
-	},
-  
-	emitChange: function(actionType) {
-		this.emit(actionType);
-	},
 
-	addChangeListener: function(actionType, callback) {
-		this.on(actionType, callback);
-	},
+  getCurrentUser: function() {
+    return _currentUser;
+  },
 
-	removeChangeListener: function(actionType, callback) {
-		this.removeListener(actionType, callback);
-	},
+  getCurrentUserId: function() {
+    return Parse.User.current().id;
+  },
 
-	dispatchIndex: AppDispatcher.register(function(payload) {
-		var action = payload.action;
-		var data = action.data;
-	
-		switch(action.actionType) {
-			case OnPitchConstants.SIGN_IN: {
-				setCurrentUser(data);
-				UserStore.emitChange(OnPitchConstants.SIGN_IN);
-			}
-		}
-		
-		return true;
-	})
+  isSignedIn: function() {
+    return _isSignedIn;
+  },
+
+  emitChange: function(actionType) {
+    this.emit(actionType);
+  },
+
+  addChangeListener: function(actionType, callback) {
+    this.on(actionType, callback);
+  },
+
+  removeChangeListener: function(actionType, callback) {
+    this.removeListener(actionType, callback);
+  },
+
+  dispatchIndex: AppDispatcher.register(function(payload) {
+    var action = payload.action;
+    var data = action.data;
+
+    switch(action.actionType) {
+      case OnPitchConstants.SIGN_IN: {
+        setCurrentUser(data);
+        UserStore.emitChange(OnPitchConstants.SIGN_IN);
+      }
+    }
+
+    return true;
+  })
 });
 
 module.exports = UserStore;
