@@ -119,7 +119,6 @@ var ProfileIntro = React.createClass({
           <p className='profileHeadlineMessage'><a href='#' id='profileHeadlineEdit' className='editable editable-click'>{this.props.profile.headline}</a></p>
         </div>
         <div className='col-sm-2'>
-          <button className='btn btn-sm'>Send Message</button>
           <button className='btn btn-sm'>Edit Profile</button>
         </div>
       </div>
