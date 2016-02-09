@@ -48,7 +48,7 @@ var gSignIn = function() {
   if (googleUser) {
 
     // Prompts for user login
-    googleUser.signIn({'prompt': 'consent'})
+    googleUser.signIn({'prompt': 'login'})
     .then(function() {
 
       // Load gapi.client library

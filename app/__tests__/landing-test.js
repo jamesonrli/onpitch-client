@@ -25,8 +25,8 @@ describe('Landing', () => {
 
 describe('Scroll', () => {
 	
-	var Scroll = require('../components/landing').Scroll	
-	var scroll = TestUtils.renderIntoDocument(<Scroll />)
+	const Scroll = require('../components/landing').Scroll	
+	const scroll = TestUtils.renderIntoDocument(<Scroll />)
 	
 	it ('Default tab', () => {
 		expect(scroll.state.tab).toBe(INTRO)			

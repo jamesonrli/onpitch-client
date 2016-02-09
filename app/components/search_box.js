@@ -29,7 +29,7 @@ var SearchBox = React.createClass({
   render: function() {
     return (      
         <div className="input-group">
-          <input type="text" className="form-control" value={this.state.searchValue} onChange={this.handleChange} placeholder="Search"></input>       
+          <input type="text" className="form-control" ref="input" value={this.state.searchValue} onChange={this.handleChange} placeholder="Search"></input>       
          <span className="btn btn-default input-group-addon">
 			<a className="glyphicon glyphicon-search" onClick={this.handleSearch} type="button"></a>
 		 </span>

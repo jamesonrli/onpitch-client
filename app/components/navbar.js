@@ -2,8 +2,8 @@ var React = require('react');
 var OnPitchConstants = require('../common/constants');
 var MainActions = require('../actions/main_actions');
 var UserStore = require('../stores/user_store');
-var ProfileStore = require('../stores/profile_store');
 var UserActions = require('../actions/user_actions');
+var ProfileActions = require('../actions/profile_actions');
 var SearchActions = require('../actions/search_actions');
 
 var SearchBox = require('./search_box').SearchBox;
@@ -41,6 +41,7 @@ var NavBar = React.createClass({
 
   signOutHandler: function() {
     UserActions.signOut(OnPitchConstants.SIGN_IN);
+	MainActions.changePage(OnPitchConstants.PAGE_LANDING);
   },
 
   signInHandler: function() {
@@ -48,8 +49,8 @@ var NavBar = React.createClass({
   },
 
   myProfileHandler: function() {
-    ProfileStore.setCurrentProfile(UserStore.getCurrentUserId());
     MainActions.changePage(OnPitchConstants.PAGE_PROFILE);
+	ProfileActions.getProfile(UserStore.getCurrentUser())
   },
 
   landingHandler: function() {
@@ -68,15 +69,15 @@ var NavBar = React.createClass({
             <span className="icon-bar" />
             <span className="icon-bar" />
           </button>
-          <a className="navbar-brand" onClick={this.landingHandler}>OnPitch</a>
+          <a ref="logoButton" className="navbar-brand" onClick={this.landingHandler}>OnPitch</a>
         </div>
 
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <div className="navbar-form">
             <ul className="nav navbar-nav">
-              <li><SearchBox /></li>
+              <li className={(UserStore.isSignedIn() ? "show" : "hide")}><SearchBox /></li>
               <li>
-                <button onClick={this.myProfileHandler} className={this.state.loggedIn}>
+                <button ref="profileButton" onClick={this.myProfileHandler} className={this.state.loggedIn}>
                   My Profile
                 </button>
               </li>
@@ -87,7 +88,7 @@ var NavBar = React.createClass({
                 <img src={this.state.profilePic} width="35" height="35"></img>
               </li>
               <li>
-                <button className="btn btn-md btn-default" onClick={this.state.isSignedIn ? this.signOutHandler : this.signInHandler}>
+                <button ref="loginButton" className="btn btn-md btn-default" onClick={this.state.isSignedIn ? this.signOutHandler : this.signInHandler}>
                   {this.state.isSignedIn ? "Log Out" : "Log In" }
                 </button>
               </li>
