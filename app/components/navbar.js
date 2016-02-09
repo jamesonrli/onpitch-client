@@ -2,6 +2,7 @@ var React = require('react');
 var OnPitchConstants = require('../common/constants');
 var MainActions = require('../actions/main_actions');
 var UserStore = require('../stores/user_store');
+var ProfileStore = require('../stores/profile_store');
 var UserActions = require('../actions/user_actions');
 var ProfileActions = require('../actions/profile_actions');
 var SearchActions = require('../actions/search_actions');
@@ -41,7 +42,7 @@ var NavBar = React.createClass({
 
   signOutHandler: function() {
     UserActions.signOut(OnPitchConstants.SIGN_IN);
-	MainActions.changePage(OnPitchConstants.PAGE_LANDING);
+  MainActions.changePage(OnPitchConstants.PAGE_LANDING);
   },
 
   signInHandler: function() {
@@ -49,8 +50,8 @@ var NavBar = React.createClass({
   },
 
   myProfileHandler: function() {
+    ProfileStore.setCurrentProfile(UserStore.getCurrentUserId());
     MainActions.changePage(OnPitchConstants.PAGE_PROFILE);
-	ProfileActions.getProfile(UserStore.getCurrentUser())
   },
 
   landingHandler: function() {
