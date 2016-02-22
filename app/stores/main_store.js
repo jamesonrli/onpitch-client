@@ -14,7 +14,7 @@ var MainStore = assign(new EventEmitter(), {
   getCurrentPage: function() {
     return _currentPage;
   },
-  
+
   emitChange: function(actionType) {
     this.emit(actionType);
   },
@@ -32,11 +32,11 @@ var MainStore = assign(new EventEmitter(), {
     var data = action.data;
 
     switch(action.actionType) {
-		case OnPitchConstants.PAGE_CHANGE: {
-			setCurrentPage(data);
-			MainStore.emitChange(OnPitchConstants.PAGE_CHANGE);
-			break;
-		}
+      case OnPitchConstants.PAGE_CHANGE: {
+        setCurrentPage(data);
+        MainStore.emitChange(OnPitchConstants.PAGE_CHANGE);
+        break;
+      }
     }
 
     return true; // No errors. Needed by promise in Dispatcher.

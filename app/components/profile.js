@@ -111,8 +111,8 @@ var ProfileIntro = React.createClass({
   render: function() {
     return (
       <div className='profileIntro container'>
-        <img className='profileImage thumbnail col-sm-4' src={this.props.profile.imageURL} />
-        <div className='col-sm-6'>
+        <div className='col-sm-8'>
+          <img className='profileImage thumbnail' src={this.props.profile.imageURL} />
           <p className='profileDisplayName'>
             <a href='#' id='profileNameEdit' className='editable editable-click'>{this.props.profile.firstName + ' ' + this.props.profile.lastName}</a>
           </p>
@@ -121,6 +121,21 @@ var ProfileIntro = React.createClass({
         <div className='col-sm-2'>
           <button className='btn btn-sm'>Edit Profile</button>
         </div>
+        <div className='col-sm-2'>
+          <ProfileInfluenceScore profile={this.props.profile}/>
+        </div>
+      </div>
+    );
+  }
+});
+
+var ProfileInfluenceScore = React.createClass({
+  render: function() {
+    return (
+      <div>
+        <p>
+          <a href='#'>{'Influence: ' + this.props.profile.influenceScore + '/100'}</a>
+        </p>
       </div>
     );
   }

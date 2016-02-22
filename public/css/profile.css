@@ -1,8 +1,10 @@
 .profileImage {
   width: 100px;
   height: 100px;
+  float: left;
+  margin-right: 10%
 }
 
 .profileIntro {
-  max-width: 700px;
+  max-width: 1200px;
 }
