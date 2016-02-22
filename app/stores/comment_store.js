@@ -21,6 +21,10 @@ function subscribeCommentChanges(userId) {
   }, false);
 }
 
+function commentsChanged() {
+  _currentComments = null;
+}
+
 var CommentActions = require('../actions/comment_actions');
 var CommentStore = assign(new EventEmitter(), {
 
@@ -53,6 +57,10 @@ var CommentStore = assign(new EventEmitter(), {
     var action = payload.action;
 
     switch(action.actionType) {
+      case OnPitchConstants.PROFILE_CHANGE: {
+        commentsChanged();
+        break;
+      }
       case OnPitchConstants.COMMENTS_CHANGE: {
         setCurrentComments(action.commentsData);
         CommentStore.emitChange(action.actionType);
