@@ -7,24 +7,29 @@ var MainActions = require('../actions/main_actions');
 
 var CardList = require("./card_list").CardList;
 
-function prepareResultForCardList(searchResult) {
-  return searchResult.map(function(result, i) {
-    return {
-      name: result.userId.firstName + " " + result.userId.lastName,
-      description: result.headline,
-      imageURL: result.userId.image,
-
-      clickHandler: function() {
-        console.log("result item clicked");
-        ProfileStore.setCurrentProfile(result.userId.objectId);
-        MainActions.changePage(OnPitchConstants.PAGE_PROFILE);
-      }
-
-    };
-  });
-}
-
 var SearchResult = React.createClass({
+
+	prepareResultForCardList: function(searchResult) {
+		if (searchResult && searchResult.map) { //Needed to fix error in Jest
+			
+			return searchResult.map(function(result, i) {
+				return {
+				  name: result.userId.firstName + " " + result.userId.lastName,
+				  description: result.headline,
+				  imageURL: result.userId.image,
+
+				  clickHandler: function() {
+					ProfileStore.setCurrentProfile(result.userId.objectId);
+					MainActions.changePage(OnPitchConstants.PAGE_PROFILE);
+				  }
+
+				};
+			});
+		}
+		else {
+			// Not expected to go in here ever.
+		}
+	},
 
   getInitialState: function() {
     return ({
@@ -44,13 +49,12 @@ var SearchResult = React.createClass({
     return (
     <div>
       <h1>Search Results</h1>
-      <CardList items={prepareResultForCardList(this.state.searchResults)} />
+      <CardList items={this.prepareResultForCardList(this.state.searchResults)} />
     </div>
     );
   },
 
   _onSearchResults: function() {
-    console.log(SearchStore.getSearchResults());
     this.setState({searchResults: SearchStore.getSearchResults()});
   }
 
