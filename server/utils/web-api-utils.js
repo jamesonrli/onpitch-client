@@ -1,4 +1,5 @@
 var ParseUtils = require('./parse-utils');
+var KloutUtils = require('./klout-utils');
 
 module.exports = {
   updateUserProfile: function(profileId, profileChanges, onResult, onError) {
@@ -17,6 +18,10 @@ module.exports = {
     ParseUtils.getUserProfile(userId, onResult, onError);
   },
 
+  getUserProfileScore: function(scoreId, onResult, onError) {
+    KloutUtils.getProfileScore(scoreId, onResult, onError);
+  },
+
   newUserProfile: function(userId, onResult, onError) {
     ParseUtils.newUserProfile(userId, onResult, onError);
   },
@@ -31,5 +36,6 @@ module.exports = {
 
   newComment: function(params, onResult, onError) {
     ParseUtils.newComment(params, onResult, onError);
-  }
+  },
+
 };

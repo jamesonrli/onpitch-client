@@ -20,6 +20,17 @@ var ProfileActions = {
     });
   },
 
+  getProfileScore: function(scoreId) {
+    WebApiUtils.getUserProfileScore(scoreId);
+  },
+
+  updateProfileScore: function(scoreData) {
+    AppDispatcher.handleDataAction({
+      actionType: OnPitchConstants.PROFILE_SCORE_CHANGE,
+      profileScoreData: new ProfileScore(scoreData.score)
+    });
+  },
+
   getProjects: function(userId) {
     WebApiUtils.getUserProjects(userId);
   },

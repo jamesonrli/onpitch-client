@@ -25,6 +25,7 @@ app.put('/userProfile/:id', Profile.updateUserProfile);
 app.get('/userProjects/:id', Profile.getUserProjects);
 app.get('/userComments/:id', Comment.getUserComments);
 app.post('/userComments', Comment.newComment);
+app.get('/userProfileScore/:scoreId', Profile.getUserProfileScore);
 /***************** END ***********************/
 
 app.use(function(req, res, next) {

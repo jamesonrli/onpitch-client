@@ -5,23 +5,37 @@ var assign = require('object-assign');
 
 var _currentProfile = null;
 var _currentProjects = null;
+var _currentScore = null;
+
 var _userId = null;
+var _scoreId = null;
 
 function setCurrentProfile(profile) {
   _currentProfile = profile;
   _userId = profile.userId;
+  _scoreId = profile.gPlusId;
 }
 
 function setCurrentProjects(projects) {
   _currentProjects = projects;
 }
 
+function setCurrentProfileScore(profileScore) {
+  _currentScore = profileScore;
+}
+
 var ProfileActions = require('../actions/profile_actions');
 var Profile = require('../data/profile');
+var ProfileScore = require('../data/profile_score');
+
 var ProfileStore = assign(new EventEmitter(), {
 
   getUserId: function() {
     return _userId ? _userId : Parse.User.current().id;
+  },
+
+  getUserScoreId: function() {
+    return _scoreId;
   },
 
   setCurrentProfile: function(userId) {
@@ -38,6 +52,17 @@ var ProfileStore = assign(new EventEmitter(), {
       ProfileActions.getProfile(this.getUserId());
     }
     return _currentProfile;
+  },
+
+  getCurrentProfileScore: function() {
+    if(!_currentScore) {
+      _currentScore = new ProfileScore(100);
+
+      if(_scoreId) {
+        ProfileActions.getProfileScore(_scoreId);
+      }
+    }
+    return _currentScore.score; 
   },
 
   getCurrentProjects: function() {
@@ -67,15 +92,19 @@ var ProfileStore = assign(new EventEmitter(), {
     switch(action.actionType) {
       case OnPitchConstants.PROFILE_CHANGE: {
         setCurrentProfile(action.profileData);
-        ProfileStore.emitChange(action.actionType);
+        break;
+      }
+      case OnPitchConstants.PROFILE_SCORE_CHANGE: {
+        setCurrentProfileScore(action.profileScoreData);
         break;
       }
       case OnPitchConstants.PROJECTS_CHANGE: {
         setCurrentProjects(action.projectsData);
-        ProfileStore.emitChange(action.actionType);
         break;
       }
     }
+
+    ProfileStore.emitChange(action.actionType);
 
     return true; // No errors. Needed by promise in Dispatcher.
   })

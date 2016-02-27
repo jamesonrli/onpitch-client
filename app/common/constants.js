@@ -11,6 +11,7 @@ module.exports = {
   PROFILE_CHANGE: 'profile-change',
   PROJECTS_CHANGE: 'projects-change',
   COMMENTS_CHANGE: 'comments-change',
+  PROFILE_SCORE_CHANGE: 'profile-score-change',
 
   USER_SEARCH_RESULT: 'user-search-result'
 };
