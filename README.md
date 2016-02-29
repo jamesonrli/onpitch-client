@@ -19,8 +19,7 @@
 2. Leave the terminal open (any files changes in the project will automatically rebuild)
 
 # Jest - Testing
-1. npm test
-Will run all tests in the __test__ folder.
+1. `npm test`will run all test cases in the __test__ folder.
 
 #FAQ
 
