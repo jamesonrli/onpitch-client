@@ -130,15 +130,42 @@ var ProfileIntro = React.createClass({
 });
 
 var ProfileInfluenceScore = React.createClass({
+  getInitialState: function() {
+    return {
+      score: ProfileStore.getCurrentProfileScore()
+    };
+  },
+
+  componentDidMount: function() {
+    ProfileStore.addChangeListener(OnPitchConstants.PROFILE_CHANGE, this._onChangeProfile);
+    ProfileStore.addChangeListener(OnPitchConstants.PROFILE_SCORE_CHANGE, this._onChangeProfileScore);
+  },
+
+  componentWillUnmount: function() {
+    ProfileStore.removeChangeListener(OnPitchConstants.PROFILE_CHANGE, this._onChangeProfile);
+    ProfileStore.removeChangeListener(OnPitchConstants.PROFILE_SCORE_CHANGE, this._onChangeProfileScore);
+  },
+
   render: function() {
     return (
       <div>
         <p>
-          <a href='#'>{'Influence: ' + this.props.profile.influenceScore + '/100'}</a>
+          <a href='#'>{'Influence: ' + this.state.score + '/100'}</a>
         </p>
       </div>
     );
+  },
+
+  _onChangeProfileScore: function() {
+    this.setState({
+      score: ProfileStore.getCurrentProfileScore()
+    });
+  },
+
+  _onChangeProfile: function() {
+    ProfileStore.getCurrentProfileScore();
   }
+
 });
 
 exports.Profile = Profile;

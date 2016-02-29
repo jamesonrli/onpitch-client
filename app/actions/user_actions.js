@@ -24,13 +24,14 @@ var addUser = function(data) {
       newUser.set("image", data.image);
       newUser.set("gender", data.gender);
       newUser.set("url", data.url);
+      newUser.set("gPlusId", data.id);
 
       newUser.signUp(null, {
         success: function(newUser) {
-          console.log(newUser + " has signed up.");
+          // console.log(newUser + " has signed up.");
         },
         error: function(user, err) {
-          console.log(user, ": ", err);
+          // console.log(user, ": ", err);
         }
       });
     }
@@ -100,7 +101,7 @@ var UserActions = {
     else {
       gapi.auth2.getAuthInstance().signOut();
     }
-	Parse.User.logOut()
+  Parse.User.logOut()
 
     AppDispatcher.handleDataAction({
       actionType: OnPitchConstants.SIGN_IN,

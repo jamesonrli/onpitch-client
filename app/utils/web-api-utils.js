@@ -82,6 +82,25 @@ module.exports = {
     );
   },
 
+  getUserProfileScore: function(scoreId) {
+    var getOptions = {
+      host: UtilConstants.INTERNAL_HOST,
+      port: UtilConstants.INTERNAL_PORT,
+      method: UtilConstants.GET,
+      path: '/userProfileScore/' + encodeURIComponent(scoreId)
+    };
+
+    HttpUtils.makeRequest(getOptions,
+      function(result) {
+        var ProfileActions = require('../actions/profile_actions');
+        ProfileActions.updateProfileScore(result);
+      },
+      function(error) {
+        console.log(error);
+      }
+    );
+  },
+
   getUserProjects: function(userId) {
     var getOptions = {
       host: UtilConstants.INTERNAL_HOST,
