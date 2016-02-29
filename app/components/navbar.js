@@ -42,7 +42,7 @@ var NavBar = React.createClass({
 
   signOutHandler: function() {
     UserActions.signOut(OnPitchConstants.SIGN_IN);
-  MainActions.changePage(OnPitchConstants.PAGE_LANDING);
+	MainActions.changePage(OnPitchConstants.PAGE_LANDING);
   },
 
   signInHandler: function() {
@@ -76,7 +76,7 @@ var NavBar = React.createClass({
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <div className="navbar-form">
             <ul className="nav navbar-nav">
-              <li className={(UserStore.isSignedIn() ? "show" : "hide")}><SearchBox /></li>
+              <li><SearchBox /></li>
               <li>
                 <button ref="profileButton" onClick={this.myProfileHandler} className={this.state.loggedIn}>
                   My Profile
@@ -84,16 +84,18 @@ var NavBar = React.createClass({
               </li>
             </ul>
 
-            <ul className="nav navbar-nav pull-right">
-              <li>
-                <img src={this.state.profilePic} width="35" height="35"></img>
-              </li>
-              <li>
-                <button ref="loginButton" className="btn btn-md btn-default" onClick={this.state.isSignedIn ? this.signOutHandler : this.signInHandler}>
-                  {this.state.isSignedIn ? "Log Out" : "Log In" }
-                </button>
-              </li>
-            </ul>
+			<div className="navbar-form">
+				<ul className="nav navbar-nav pull-right">
+				  <li>
+					<img src={this.state.profilePic} width="35" height="35"></img>
+				  </li>
+				  <li>
+					<button ref="loginButton" className="btn btn-md btn-default" onClick={this.state.isSignedIn ? this.signOutHandler : this.signInHandler}>
+					  {this.state.isSignedIn ? "Log Out" : "Log In" }
+					</button>
+				  </li>
+				</ul>
+			</div>
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ var renderCard = function (item, i) {
 			<img className='cardImage thumbnail' src={item.imageURL} />
 		  </div>
 		  <div className='cardDetails col-xs-8'>
-			<p className="list-group-item-heading">{item.name}</p>
+			<h3 className="list-group-item-heading">{item.name}</h3>
 			<p className="list-group-item-text">{item.description}</p>
 		  </div>
 		</div>

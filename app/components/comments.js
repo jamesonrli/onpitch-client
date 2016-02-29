@@ -66,8 +66,9 @@ var Comment = React.createClass({
     var dateObj = this.props.createdDate;
 
     return (
-      <div className='comment'>
-        <div className='commentInner'>
+      <div className='comment'>		
+        <div className='commentInner container'>
+		  <h3>Comments</h3>
           <div className='commentHeader row'>
             <p className='commentAuthor commentHeaderItem col-xs-2'>{this.props.author}</p>
             <p className='commentCreated commentHeaderItem col-xs-3'>
@@ -86,6 +87,14 @@ var Comment = React.createClass({
 });
 
 var CommentForm = React.createClass({
+  getInitialState: function() {
+	  var isSignedIn = UserStore.isSignedIn() ? "show" : "hide"
+	 	  
+	  return {
+		  userState: isSignedIn
+	  }
+  },
+	
   onSubmitComment: function() {
     var newCommentText = this.refs.newComment.value;
 
@@ -98,7 +107,7 @@ var CommentForm = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className={this.state.userState + " container"}>
         <form>
           <div className='form-group'>
             <label htmlFor='comment-body-input'>New Comment</label>
